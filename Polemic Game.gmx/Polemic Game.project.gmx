@@ -8,12 +8,14 @@
   <sprites name="sprites">
     <sprite>sprites\spr_hero</sprite>
     <sprite>sprites\spr_wall</sprite>
+    <sprite>sprites\spr_sword</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
   <objects name="objects">
     <object>objects\obj_hero</object>
     <object>objects\obj_wall</object>
+    <object>objects\obj_sword</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room0</room>
