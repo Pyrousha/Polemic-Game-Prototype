@@ -25,7 +25,9 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>up = ord('W');
+            <string>display_reset(8,true);
+
+up = ord('W');
 down = ord('S');
 left = ord('A');
 right = ord('D');
@@ -34,8 +36,11 @@ vSpd = 0;
 accel = 1;
 moveSpd = 5;
 ff = 1;
-weapon = instance_create(x,y,obj_sword);
+weapon = instance_create(x,y,obj_gun);
 swordState = "right";
+shootSpeed = 15;
+shootTimer = 0;
+canShoot = "true";
 </string>
           </argument>
         </arguments>
@@ -146,46 +151,71 @@ if (inst != noone)
 y-=vSpd;
 x+=hSpd;
 
-//weapon position
+//weapon stuff
 if (weapon != noone)
 {
     weapon.x = x+sprite_width/2;
     weapon.y = y+sprite_height/2;
-    switch (swordState)
+    switch (weapon.object_index)
     {
-        case ("right"):
+        case (obj_sword): //sword equipped
         {
-            weapon.image_angle = point_direction(x+sprite_width/2, y+sprite_height/2, mouse_x, mouse_y)-90;
-            break;
-        }
-        case ("left"):
-        {
-            weapon.image_angle = point_direction(x+sprite_width/2, y+sprite_height/2, mouse_x, mouse_y)+90;
-            break;
-        }
-        case ("RtoL"):
-        {
-            weapon.image_angle = point_direction(x+sprite_width/2, y+sprite_height/2, mouse_x, mouse_y)-90;
-            if (weapon.image_index == (sprite_get_number(spr_sword_swing_left) -1))
+            switch (swordState)
             {
-                weapon.sprite_index = spr_sword;
-                swordState = "left";
-                weapon.image_angle = point_direction(x+sprite_width/2, y+sprite_height/2, mouse_x, mouse_y)+90;
+                case ("right"):
+                {
+                    weapon.image_angle = point_direction(x+sprite_width/2, y+sprite_height/2, mouse_x, mouse_y)-90;
+                    break;
+                }
+                case ("left"):
+                {
+                    weapon.image_angle = point_direction(x+sprite_width/2, y+sprite_height/2, mouse_x, mouse_y)+90;
+                    break;
+                }
+                case ("RtoL"):
+                {
+                    weapon.image_angle = point_direction(x+sprite_width/2, y+sprite_height/2, mouse_x, mouse_y)-90;
+                    if (weapon.image_index == (sprite_get_number(spr_sword_swing_left) -1))
+                    {
+                        weapon.sprite_index = spr_sword;
+                        swordState = "left";
+                        weapon.image_angle = point_direction(x+sprite_width/2, y+sprite_height/2, mouse_x, mouse_y)+90;
+                    }
+                    break;
+                }
+                case ("LtoR"):
+                {   
+                    weapon.image_angle = point_direction(x+sprite_width/2, y+sprite_height/2, mouse_x, mouse_y)+90;
+                    if (weapon.image_index == (sprite_get_number(spr_sword_swing_right) -1))
+                    {
+                        weapon.sprite_index = spr_sword;
+                        swordState = "right";
+                        weapon.image_angle = point_direction(x+sprite_width/2, y+sprite_height/2, mouse_x, mouse_y)-90;
+                    }
+                    break;
+                }   
             }
             break;
         }
-        case ("LtoR"):
-        {   
-            weapon.image_angle = point_direction(x+sprite_width/2, y+sprite_height/2, mouse_x, mouse_y)+90;
-            if (weapon.image_index == (sprite_get_number(spr_sword_swing_right) -1))
+        case (obj_gun): //gun equipped
+        {
+            weapon.image_angle = point_direction(x+sprite_width/2, y+sprite_height/2, mouse_x, mouse_y);
+            //Reloading
+            if (canShoot == "false")
             {
-                weapon.sprite_index = spr_sword;
-                swordState = "right";
-                weapon.image_angle = point_direction(x+sprite_width/2, y+sprite_height/2, mouse_x, mouse_y)-90;
+                if (shootTimer &lt;= 0)
+                {
+                    canShoot = "true";
+                }
+                else
+                {
+                    shootTimer--;
+                }
             }
             break;
         }
     }
+    //Weapon and depth
     if (weapon.image_angle&lt;0)
     {
         weapon.image_angle+=360;
@@ -202,11 +232,96 @@ if (weapon != noone)
     {
         weapon.depth = -1;
     }
-    
+    //Weapon mirror (if aplicable)
+    if (weapon.object_index == obj_gun)
+    {
+        if ((weapon.image_angle &gt; 90) &amp;&amp; (weapon.image_angle &lt;=270))
+        {
+            weapon.image_yscale = -1;
+        }
+        else
+        {
+            weapon.image_yscale = 1;
+        }
+    }
 }
 show_debug_message("weapon.image_angle: "+ string(weapon.image_angle));
 //show_debug_message("vSpd: "+string(vSpd));
 //show_debug_message("hSpd: "+string(hSpd));
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="6" enumb="61">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>switch(weapon.object_index)
+{
+    case (obj_sword):
+    {
+        instance_destroy(weapon);
+        weapon = instance_create(x+sprite_width/2,y+sprite_height/2,obj_gun);
+        break;
+    }
+    case (obj_gun):
+    {
+        instance_destroy(weapon);
+        weapon = instance_create(x+sprite_width/2,y+sprite_height/2,obj_sword);
+        break;
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="6" enumb="60">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>switch(weapon.object_index)
+{
+    case (obj_sword):
+    {
+        instance_destroy(weapon);
+        weapon = instance_create(x+sprite_width/2,y+sprite_height/2,obj_gun);
+        break;
+    }
+    case (obj_gun):
+    {
+        instance_destroy(weapon);
+        weapon = instance_create(x+sprite_width/2,y+sprite_height/2,obj_sword);
+        break;
+    }
+}
 </string>
           </argument>
         </arguments>
@@ -229,20 +344,37 @@ show_debug_message("weapon.image_angle: "+ string(weapon.image_angle));
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>switch (swordState)
+            <string>switch(weapon.object_index)
 {
-    case ("right"):
+    case (obj_sword):
     {
-        swordState = "RtoL";
-        weapon.sprite_index = spr_sword_swing_left;
-        instance_create(x,y,obj_swing_hitbox);
+        switch (swordState)
+        {
+            case ("right"):
+            {
+                swordState = "RtoL";
+                weapon.sprite_index = spr_sword_swing_left;
+                instance_create(x+sprite_width/2,y+sprite_height/2,obj_swing_hitbox);
+                break;
+            }
+            case ("left"):
+            {
+                swordState = "LtoR";
+                weapon.sprite_index = spr_sword_swing_right;
+                instance_create(x+sprite_width/2,y+sprite_height/2,obj_swing_hitbox);
+                break;
+            }
+        }
         break;
     }
-    case ("left"):
+    case (obj_gun):
     {
-        swordState = "LtoR";
-        weapon.sprite_index = spr_sword_swing_right;
-        instance_create(x,y,obj_swing_hitbox);
+        if (canShoot == "true")
+        {
+            instance_create(x+sprite_width/2,y+sprite_height/2,obj_bullet);
+            shootTimer = shootSpeed;
+            canShoot = "false";
+        }
         break;
     }
 }

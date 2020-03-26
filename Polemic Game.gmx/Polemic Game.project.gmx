@@ -12,6 +12,8 @@
     <sprite>sprites\spr_sword_swing_left</sprite>
     <sprite>sprites\spr_sword_swing_right</sprite>
     <sprite>sprites\spr_swing_hitbox</sprite>
+    <sprite>sprites\spr_gun</sprite>
+    <sprite>sprites\spr_bullet</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -21,6 +23,8 @@
     <object>objects\obj_sword</object>
     <object>objects\obj_gun1</object>
     <object>objects\obj_swing_hitbox</object>
+    <object>objects\obj_bullet</object>
+    <object>objects\obj_gun</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room0</room>
