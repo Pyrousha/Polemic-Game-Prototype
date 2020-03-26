@@ -383,6 +383,43 @@ show_debug_message("weapon.image_angle: "+ string(weapon.image_angle));
         </arguments>
       </action>
     </event>
+    <event eventtype="9" enumb="16">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>switch(weapon.object_index)
+{
+    case (obj_sword):
+    {
+        instance_destroy(weapon);
+        weapon = instance_create(x+sprite_width/2,y+sprite_height/2,obj_gun);
+        break;
+    }
+    case (obj_gun):
+    {
+        instance_destroy(weapon);
+        weapon = instance_create(x+sprite_width/2,y+sprite_height/2,obj_sword);
+        break;
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
   </events>
   <PhysicsObject>0</PhysicsObject>
   <PhysicsObjectSensor>0</PhysicsObjectSensor>
