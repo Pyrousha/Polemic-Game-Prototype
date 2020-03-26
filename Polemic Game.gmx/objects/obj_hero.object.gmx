@@ -156,11 +156,13 @@ if (weapon != noone)
         case ("right"):
         {
             weapon.image_angle = point_direction(x+sprite_width/2, y+sprite_height/2, mouse_x, mouse_y)-75;
+            weapon.depth = -1;
             break;
         }
         case ("left"):
         {
             weapon.image_angle = point_direction(x+sprite_width/2, y+sprite_height/2, mouse_x, mouse_y)+75;
+            weapon.depth = 1;
             break;
         }
     }
