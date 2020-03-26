@@ -155,19 +155,56 @@ if (weapon != noone)
     {
         case ("right"):
         {
-            weapon.image_angle = point_direction(x+sprite_width/2, y+sprite_height/2, mouse_x, mouse_y)-75;
-            weapon.depth = -1;
+            weapon.image_angle = point_direction(x+sprite_width/2, y+sprite_height/2, mouse_x, mouse_y)-90;
             break;
         }
         case ("left"):
         {
-            weapon.image_angle = point_direction(x+sprite_width/2, y+sprite_height/2, mouse_x, mouse_y)+75;
-            weapon.depth = 1;
+            weapon.image_angle = point_direction(x+sprite_width/2, y+sprite_height/2, mouse_x, mouse_y)+90;
+            break;
+        }
+        case ("RtoL"):
+        {
+            weapon.image_angle = point_direction(x+sprite_width/2, y+sprite_height/2, mouse_x, mouse_y)-90;
+            if (weapon.image_index == (sprite_get_number(spr_sword_swing_left) -1))
+            {
+                weapon.sprite_index = spr_sword;
+                swordState = "left";
+                weapon.image_angle = point_direction(x+sprite_width/2, y+sprite_height/2, mouse_x, mouse_y)+90;
+            }
+            break;
+        }
+        case ("LtoR"):
+        {   
+            weapon.image_angle = point_direction(x+sprite_width/2, y+sprite_height/2, mouse_x, mouse_y)+90;
+            if (weapon.image_index == (sprite_get_number(spr_sword_swing_right) -1))
+            {
+                weapon.sprite_index = spr_sword;
+                swordState = "right";
+                weapon.image_angle = point_direction(x+sprite_width/2, y+sprite_height/2, mouse_x, mouse_y)-90;
+            }
             break;
         }
     }
+    if (weapon.image_angle&lt;0)
+    {
+        weapon.image_angle+=360;
+    }
+    if (weapon.image_angle&gt;=360)
+    {
+        weapon.image_angle-=360;
+    }
+    if (weapon.image_angle &lt; 180)
+    {
+        weapon.depth = 1;
+    }
+    else
+    {
+        weapon.depth = -1;
+    }
     
 }
+show_debug_message("weapon.image_angle: "+ string(weapon.image_angle));
 //show_debug_message("vSpd: "+string(vSpd));
 //show_debug_message("hSpd: "+string(hSpd));
 </string>
@@ -196,12 +233,16 @@ if (weapon != noone)
 {
     case ("right"):
     {
-        swordState = "left";
+        swordState = "RtoL";
+        weapon.sprite_index = spr_sword_swing_left;
+        instance_create(x,y,obj_swing_hitbox);
         break;
     }
     case ("left"):
     {
-        swordState = "right";
+        swordState = "LtoR";
+        weapon.sprite_index = spr_sword_swing_right;
+        instance_create(x,y,obj_swing_hitbox);
         break;
     }
 }

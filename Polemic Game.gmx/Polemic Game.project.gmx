@@ -9,6 +9,9 @@
     <sprite>sprites\spr_hero</sprite>
     <sprite>sprites\spr_wall</sprite>
     <sprite>sprites\spr_sword</sprite>
+    <sprite>sprites\spr_sword_swing_left</sprite>
+    <sprite>sprites\spr_sword_swing_right</sprite>
+    <sprite>sprites\spr_swing_hitbox</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -17,6 +20,7 @@
     <object>objects\obj_wall</object>
     <object>objects\obj_sword</object>
     <object>objects\obj_gun1</object>
+    <object>objects\obj_swing_hitbox</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room0</room>
