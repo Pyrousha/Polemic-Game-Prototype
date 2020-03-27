@@ -52,21 +52,27 @@ vsp=0;
             <kind>1</kind>
             <string>switch (state)
 {
-case monster.ECalm:
-{
-hsp=0;
-vsp=0;
-if (distance_to_object(obj_hero) &lt; 100) state= monster.EAggro;
-}
-break;
-case monster.EAggro:
-{
-hdir= sign(obj_hero.x-x);
-vdir= sign(obj_hero.y-y);
-x= x+hdir*2;
-y=y+vdir*2;
-if (distance_to_object(obj_hero) &gt; 140) state = monster.ECalm;
-}
+    case monster.ECalm:
+    {
+        hsp=0;
+        vsp=0;
+        if (distance_to_object(obj_hero) &lt; 100) 
+        {
+            state= monster.EAggro;
+        }
+        break;
+    }
+    case monster.EAggro:
+    {
+        hdir = sign(obj_hero.x-x);
+        vdir = sign(obj_hero.y-y);
+        x += hdir*2;
+        y += vdir*2;
+        if (distance_to_object(obj_hero) &gt; 140) 
+        {
+            state = monster.ECalm;
+        }
+    }
 }
 
 </string>
