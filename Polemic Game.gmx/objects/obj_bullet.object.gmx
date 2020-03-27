@@ -25,11 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>speed=8;
-timer = 5;
-direction = point_direction(obj_hero.x+obj_hero.sprite_width/2,obj_hero.y+obj_hero.sprite_height/2,mouse_x,mouse_y);
-x+=32*dcos(direction);
-y-=32*dsin(direction);
+            <string>speed=12;
 </string>
           </argument>
         </arguments>

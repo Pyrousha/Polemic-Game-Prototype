@@ -41,6 +41,45 @@ swordState = "right";
 shootSpeed = 15;
 shootTimer = 0;
 canShoot = "true";
+bulletCounter = 3;
+bulletInterval = 3;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>bulletDir = point_direction(x+sprite_width/2,y+sprite_height/2,mouse_x,mouse_y);
+bulletSpacing = 24
+bulletX = (x+sprite_width/2) + bulletSpacing*dcos(bulletDir);
+bulletY = (y+sprite_height/2) - bulletSpacing*dsin(bulletDir);
+with(instance_create(0,0,obj_bullet))
+{
+    x = obj_hero.bulletX;
+    y = obj_hero.bulletY;
+    direction = obj_hero.bulletDir;
+}
+bulletCounter--;
+if (bulletCounter &gt; 0)
+{
+    alarm[0] = bulletInterval;
+}
 </string>
           </argument>
         </arguments>
@@ -156,7 +195,7 @@ if((keyboard_check_pressed(vk_shift)) || (mouse_wheel_up()) || (mouse_wheel_down
 {
     switch(weapon.object_index)
     {
-        case (obj_sword):
+        case (obj_sword): //Sword to gun
         {
             if ((swordState == "right") || (swordState == "left"))
             {
@@ -168,7 +207,7 @@ if((keyboard_check_pressed(vk_shift)) || (mouse_wheel_up()) || (mouse_wheel_down
             }
             break;
         }
-        case (obj_gun):
+        case (obj_gun): //Gun to Tommy
         {
             with(weapon)
             {
@@ -177,7 +216,7 @@ if((keyboard_check_pressed(vk_shift)) || (mouse_wheel_up()) || (mouse_wheel_down
             weapon = instance_create(x+sprite_width/2,y+sprite_height/2,Obj_TommyGun);
             break;
         }
-        case (Obj_TommyGun):
+        case (Obj_TommyGun): //Tommy to sword
         {
             with(weapon)
             {
@@ -288,7 +327,7 @@ if (weapon != noone)
         weapon.depth = -1;
     }
     //Weapon mirror (if aplicable)
-    if (weapon.object_index == obj_gun)
+    if ((weapon.object_index == obj_gun)||(weapon.object_index==Obj_TommyGun))
     {
         if ((weapon.image_angle &gt; 90) &amp;&amp; (weapon.image_angle &lt;=270))
         {
@@ -326,7 +365,8 @@ show_debug_message("weapon.image_angle: "+ string(weapon.image_angle));
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>switch(weapon.object_index)
+            <string>bulletDir = point_direction(x+sprite_width/2,y+sprite_height/2,mouse_x,mouse_y);
+switch(weapon.object_index)
 {
     case (obj_sword):
     {
@@ -353,7 +393,14 @@ show_debug_message("weapon.image_angle: "+ string(weapon.image_angle));
     {
         if (canShoot == "true")
         {
-            instance_create(x+sprite_width/2,y+sprite_height/2,obj_bullet);
+            bulletX = (x+sprite_width/2) + 32*dcos(bulletDir);
+            bulletY = (y+sprite_height/2) - 32*dsin(bulletDir);
+            with(instance_create(0,0,obj_bullet))
+            {
+                x = obj_hero.bulletX;
+                y = obj_hero.bulletY;
+                direction = obj_hero.bulletDir;
+            }
             shootTimer = shootSpeed;
             canShoot = "false";
         }
@@ -363,9 +410,37 @@ show_debug_message("weapon.image_angle: "+ string(weapon.image_angle));
     {
         if (canShoot == "true")
         {
-            instance_create(x+sprite_width/2,y+sprite_height/2,obj_bullet);
-            instance_create((x+sprite_width/2)+6,(y+sprite_height/2),obj_bullet);
-           instance_create((x+sprite_width/2)+12,(y+sprite_height/2),obj_bullet);
+            bulletSpacing = 24
+            bulletX = (x+sprite_width/2) + bulletSpacing*dcos(bulletDir);
+            bulletY = (y+sprite_height/2) - bulletSpacing*dsin(bulletDir);
+            with(instance_create(0,0,obj_bullet))
+            {
+                x = obj_hero.bulletX;
+                y = obj_hero.bulletY;
+                direction = obj_hero.bulletDir;
+            }
+            alarm[0] = bulletInterval;
+            bulletCounter = 3;
+            shootTimer = (shootSpeed*2)/3;
+            canShoot = "false";
+        }
+        break;
+    }
+    case (Obj_shotGun):
+    {
+        if (canShoot == "true")
+        {
+            for(i = -1; i&lt;2; i++)
+            {
+                bulletX = (x+sprite_width/2) + (24*i)*dcos(bulletDir);
+                bulletY = (y+sprite_height/2) - (24*i)*dsin(bulletDir);
+                with(instance_create(0,0,obj_bullet))
+                {
+                    x = obj_hero.bulletX;
+                    y = obj_hero.bulletY;
+                    direction = obj_hero.bulletDir + (10*obj_hero.i);
+                }   
+            }
             shootTimer = shootSpeed/2;
             canShoot = "false";
         }
