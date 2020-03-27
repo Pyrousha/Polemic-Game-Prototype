@@ -25,9 +25,10 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>speed=6;
+            <string>damage = obj_sword.damage;
+speed=7;
 image_speed=0;
-timer = 5;
+timer = 3;
 direction = point_direction(obj_hero.x+obj_hero.sprite_width/2,obj_hero.y+obj_hero.sprite_height/2,mouse_x,mouse_y);
 image_angle = direction-90;
 </string>
@@ -67,17 +68,28 @@ y-=obj_hero.vSpd;
     <event eventtype="7" enumb="7">
       <action>
         <libid>1</libid>
-        <id>203</id>
-        <kind>0</kind>
+        <id>603</id>
+        <kind>7</kind>
         <userelative>0</userelative>
         <isquestion>0</isquestion>
         <useapplyto>-1</useapplyto>
-        <exetype>1</exetype>
-        <functionname>action_kill_object</functionname>
+        <exetype>2</exetype>
+        <functionname></functionname>
         <codestring></codestring>
         <whoName>self</whoName>
         <relative>0</relative>
         <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (obj_hero.weapon.object_index == obj_sword)
+{
+    ds_list_clear(obj_hero.weapon.hitList);
+}
+instance_destroy();
+</string>
+          </argument>
+        </arguments>
       </action>
     </event>
   </events>

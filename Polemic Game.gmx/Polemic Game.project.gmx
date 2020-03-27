@@ -23,6 +23,7 @@
     <background>background\background1</background>
   </backgrounds>
   <paths name="paths"/>
+<<<<<<< Updated upstream
   <scripts name="scripts"/>
   <objects name="objects">
     <object>objects\obj_hero</object>
@@ -35,6 +36,34 @@
     <object>objects\obj_Ally</object>
     <object>objects\Obj_Enemy</object>
     <object>objects\Obj_TommyGun</object>
+=======
+  <fonts name="fonts">
+    <font>fonts\fn_1</font>
+  </fonts>
+  <objects name="objects">
+    <objects name="Terrain">
+      <object>objects\obj_wall</object>
+    </objects>
+    <objects name="Characters">
+      <object>objects\obj_hero</object>
+      <object>objects\obj_Ally</object>
+      <object>objects\obj_enemy</object>
+      <object>objects\obj_aggroRange</object>
+    </objects>
+    <objects name="Swords">
+      <object>objects\obj_sword</object>
+      <object>objects\obj_swing_hitbox</object>
+    </objects>
+    <objects name="Guns">
+      <object>objects\obj_gun</object>
+      <object>objects\obj_tommyGun</object>
+      <object>objects\obj_bullet</object>
+    </objects>
+    <objects name="Misc">
+      <object>objects\obj_grid</object>
+      <object>objects\obj_UI</object>
+    </objects>
+>>>>>>> Stashed changes
   </objects>
   <rooms name="rooms">
     <room>rooms\room0</room>
