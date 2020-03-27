@@ -14,8 +14,14 @@
     <sprite>sprites\spr_swing_hitbox</sprite>
     <sprite>sprites\spr_gun</sprite>
     <sprite>sprites\spr_bullet</sprite>
+    <sprite>sprites\Spr_ally</sprite>
+    <sprite>sprites\spr_enemy</sprite>
+    <sprite>sprites\spr_TommyGun</sprite>
   </sprites>
-  <backgrounds name="background"/>
+  <backgrounds name="background">
+    <background>background\background0</background>
+    <background>background\background1</background>
+  </backgrounds>
   <paths name="paths"/>
   <objects name="objects">
     <object>objects\obj_hero</object>
@@ -25,6 +31,9 @@
     <object>objects\obj_swing_hitbox</object>
     <object>objects\obj_bullet</object>
     <object>objects\obj_gun</object>
+    <object>objects\obj_Ally</object>
+    <object>objects\Obj_Enemy</object>
+    <object>objects\Obj_TommyGun</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room0</room>
