@@ -74,6 +74,7 @@ with(instance_create(0,0,obj_bullet))
     x = obj_hero.bulletX;
     y = obj_hero.bulletY;
     direction = obj_hero.bulletDir;
+    damage = obj_hero.weapon.damage;
 }
 bulletCounter--;
 if (bulletCounter &gt; 0)
@@ -213,10 +214,10 @@ if((keyboard_check_pressed(vk_shift)) || (mouse_wheel_up()) || (mouse_wheel_down
             {
                 instance_destroy();
             }
-            weapon = instance_create(x+sprite_width/2,y+sprite_height/2,Obj_tommyGun);
+            weapon = instance_create(x+sprite_width/2,y+sprite_height/2,obj_tommyGun);
             break;
         }
-        case (Obj_tommyGun): //Tommy to sword
+        case (obj_tommyGun): //Tommy to sword
         {
             with(weapon)
             {
@@ -291,7 +292,7 @@ if (weapon != noone)
             }
             break;
         }
-        case (Obj_tommyGun): //tommy-gun equipped
+        case (obj_tommyGun): //tommy-gun equipped
         {
             weapon.image_angle = point_direction(x+sprite_width/2, y+sprite_height/2, mouse_x, mouse_y);
             //Reloading
@@ -327,7 +328,7 @@ if (weapon != noone)
         weapon.depth = -1;
     }
     //Weapon mirror (if aplicable)
-    if ((weapon.object_index == obj_gun)||(weapon.object_index==Obj_tommyGun))
+    if ((weapon.object_index == obj_gun)||(weapon.object_index==obj_tommyGun))
     {
         if ((weapon.image_angle &gt; 90) &amp;&amp; (weapon.image_angle &lt;=270))
         {
@@ -376,14 +377,20 @@ switch(weapon.object_index)
             {
                 swordState = "RtoL";
                 weapon.sprite_index = spr_sword_swing_left;
-                instance_create(x+sprite_width/2,y+sprite_height/2,obj_swing_hitbox);
+                with (instance_create(x+sprite_width/2,y+sprite_height/2,obj_swing_hitbox))
+                {
+                    swordBlade = obj_hero.weapon;
+                }
                 break;
             }
             case ("left"):
             {
                 swordState = "LtoR";
                 weapon.sprite_index = spr_sword_swing_right;
-                instance_create(x+sprite_width/2,y+sprite_height/2,obj_swing_hitbox);
+                with (instance_create(x+sprite_width/2,y+sprite_height/2,obj_swing_hitbox))
+                {
+                    swordBlade = obj_hero.weapon;
+                }
                 break;
             }
         }
@@ -400,13 +407,14 @@ switch(weapon.object_index)
                 x = obj_hero.bulletX;
                 y = obj_hero.bulletY;
                 direction = obj_hero.bulletDir;
+                damage = obj_hero.weapon.damage;
             }
             shootTimer = shootSpeed;
             canShoot = "false";
         }
         break;
     }
-    case (Obj_TommyGun):
+    case (obj_tommyGun):
     {
         if (canShoot == "true")
         {
@@ -418,6 +426,7 @@ switch(weapon.object_index)
                 x = obj_hero.bulletX;
                 y = obj_hero.bulletY;
                 direction = obj_hero.bulletDir;
+                damage = obj_hero.weapon.damage;
             }
             alarm[0] = bulletInterval;
             bulletCounter = 3;
@@ -426,7 +435,7 @@ switch(weapon.object_index)
         }
         break;
     }
-    case (Obj_shotGun):
+    case (obj_shotGun):
     {
         if (canShoot == "true")
         {
@@ -439,6 +448,7 @@ switch(weapon.object_index)
                     x = obj_hero.bulletX;
                     y = obj_hero.bulletY;
                     direction = obj_hero.bulletDir + (10*obj_hero.i);
+                    damage = obj_hero.weapon.damage;
                 }   
             }
             shootTimer = shootSpeed/2;
