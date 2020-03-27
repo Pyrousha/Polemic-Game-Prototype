@@ -6,17 +6,26 @@
   <NewExtensions/>
   <sounds name="sound"/>
   <sprites name="sprites">
-    <sprite>sprites\spr_hero</sprite>
-    <sprite>sprites\spr_wall</sprite>
-    <sprite>sprites\spr_sword</sprite>
-    <sprite>sprites\spr_sword_swing_left</sprite>
-    <sprite>sprites\spr_sword_swing_right</sprite>
-    <sprite>sprites\spr_swing_hitbox</sprite>
-    <sprite>sprites\spr_gun</sprite>
-    <sprite>sprites\spr_bullet</sprite>
-    <sprite>sprites\Spr_ally</sprite>
-    <sprite>sprites\spr_enemy</sprite>
-    <sprite>sprites\spr_TommyGun</sprite>
+    <sprites name="Terrain">
+      <sprite>sprites\spr_wall</sprite>
+    </sprites>
+    <sprites name="Characters">
+      <sprite>sprites\spr_hero</sprite>
+      <sprite>sprites\Spr_ally</sprite>
+      <sprite>sprites\spr_enemy</sprite>
+      <sprite>sprites\spr_aggroRange</sprite>
+    </sprites>
+    <sprites name="Swords">
+      <sprite>sprites\spr_sword</sprite>
+      <sprite>sprites\spr_sword_swing_left</sprite>
+      <sprite>sprites\spr_sword_swing_right</sprite>
+      <sprite>sprites\spr_swing_hitbox</sprite>
+    </sprites>
+    <sprites name="Guns">
+      <sprite>sprites\spr_gun</sprite>
+      <sprite>sprites\spr_tommyGun</sprite>
+      <sprite>sprites\spr_bullet</sprite>
+    </sprites>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
@@ -24,16 +33,25 @@
   </backgrounds>
   <paths name="paths"/>
   <objects name="objects">
-    <object>objects\obj_hero</object>
-    <object>objects\obj_wall</object>
-    <object>objects\obj_sword</object>
-    <object>objects\obj_gun1</object>
-    <object>objects\obj_swing_hitbox</object>
-    <object>objects\obj_bullet</object>
-    <object>objects\obj_gun</object>
-    <object>objects\obj_Ally</object>
-    <object>objects\Obj_Enemy</object>
-    <object>objects\Obj_TommyGun</object>
+    <objects name="Terrain">
+      <object>objects\obj_wall</object>
+    </objects>
+    <objects name="Characters">
+      <object>objects\obj_hero</object>
+      <object>objects\obj_Ally</object>
+      <object>objects\Obj_enemy</object>
+      <object>objects\obj_grid</object>
+      <object>objects\obj_aggroRange</object>
+    </objects>
+    <objects name="Swords">
+      <object>objects\obj_sword</object>
+      <object>objects\obj_swing_hitbox</object>
+    </objects>
+    <objects name="Guns">
+      <object>objects\obj_gun</object>
+      <object>objects\Obj_TommyGun</object>
+      <object>objects\obj_bullet</object>
+    </objects>
   </objects>
   <rooms name="rooms">
     <room>rooms\room0</room>

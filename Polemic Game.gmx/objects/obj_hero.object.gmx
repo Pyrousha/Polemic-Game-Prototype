@@ -213,10 +213,10 @@ if((keyboard_check_pressed(vk_shift)) || (mouse_wheel_up()) || (mouse_wheel_down
             {
                 instance_destroy();
             }
-            weapon = instance_create(x+sprite_width/2,y+sprite_height/2,Obj_TommyGun);
+            weapon = instance_create(x+sprite_width/2,y+sprite_height/2,Obj_tommyGun);
             break;
         }
-        case (Obj_TommyGun): //Tommy to sword
+        case (Obj_tommyGun): //Tommy to sword
         {
             with(weapon)
             {
@@ -291,7 +291,7 @@ if (weapon != noone)
             }
             break;
         }
-        case (Obj_TommyGun): //tommy-gun equipped
+        case (Obj_tommyGun): //tommy-gun equipped
         {
             weapon.image_angle = point_direction(x+sprite_width/2, y+sprite_height/2, mouse_x, mouse_y);
             //Reloading
@@ -327,7 +327,7 @@ if (weapon != noone)
         weapon.depth = -1;
     }
     //Weapon mirror (if aplicable)
-    if ((weapon.object_index == obj_gun)||(weapon.object_index==Obj_TommyGun))
+    if ((weapon.object_index == obj_gun)||(weapon.object_index==Obj_tommyGun))
     {
         if ((weapon.image_angle &gt; 90) &amp;&amp; (weapon.image_angle &lt;=270))
         {

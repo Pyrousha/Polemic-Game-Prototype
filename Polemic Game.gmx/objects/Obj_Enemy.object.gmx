@@ -19,7 +19,7 @@
         <exetype>2</exetype>
         <functionname></functionname>
         <codestring></codestring>
-        <whoName>Obj_Enemy</whoName>
+        <whoName>Obj_enemy</whoName>
         <relative>0</relative>
         <isnot>0</isnot>
         <arguments>
@@ -28,6 +28,16 @@
             <string>state = monster.ECalm;
 hsp=0;
 vsp=0;
+
+aggroRange = 300;
+deAggroRange = aggroRange;
+
+aggroObj = instance_create(x,y,obj_aggroRange);
+aggroObj.image_xscale = (aggroRange/(aggroObj.sprite_width/2));
+aggroObj.image_yscale = aggroObj.image_xscale;
+
+//Create the path
+path = path_add();
 </string>
           </argument>
         </arguments>
@@ -44,7 +54,7 @@ vsp=0;
         <exetype>2</exetype>
         <functionname></functionname>
         <codestring></codestring>
-        <whoName>Obj_Enemy</whoName>
+        <whoName>Obj_enemy</whoName>
         <relative>0</relative>
         <isnot>0</isnot>
         <arguments>
@@ -54,27 +64,68 @@ vsp=0;
 {
     case monster.ECalm:
     {
-        hsp=0;
-        vsp=0;
-        if (distance_to_object(obj_hero) &lt; 100) 
+        if (point_distance(x,y,obj_hero.x+obj_hero.sprite_width/2,obj_hero.y+obj_hero.sprite_height/2) &lt; aggroRange) 
         {
-            state= monster.EAggro;
+            state = monster.EAggro;
         }
         break;
     }
     case monster.EAggro:
     {
-        hdir = sign(obj_hero.x-x);
+        /*hdir = sign(obj_hero.x-x);
         vdir = sign(obj_hero.y-y);
         x += hdir*2;
-        y += vdir*2;
-        if (distance_to_object(obj_hero) &gt; 140) 
+        y += vdir*2;*/
+        ///Create the path and move to the player
+        if (point_distance(x,y,obj_hero.x+obj_hero.sprite_width/2,obj_hero.y+obj_hero.sprite_height/2) &gt; deAggroRange) 
         {
+            path_end();
             state = monster.ECalm;
+        }
+        else
+        {
+            var tx = obj_hero.x + obj_hero.sprite_width/2;
+            var ty = obj_hero.y + obj_hero.sprite_height/2;
+
+            if (mp_grid_path(global.grid, path, x, y, tx, ty, 1))
+            {
+                path_start(path,4,path_action_stop,false);
+            }
         }
     }
 }
+aggroObj.x = x;
+aggroObj.y = y;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="6" enumb="54">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Create the path and move to the player
+var tx = obj_hero.x + obj_hero.sprite_width/2;
+var ty = obj_hero.y + obj_hero.sprite_height/2;
 
+if (mp_grid_path(global.grid, path, x, y, tx, ty, 1))
+{
+    path_start(path,4,path_action_stop,false);
+}
 </string>
           </argument>
         </arguments>
