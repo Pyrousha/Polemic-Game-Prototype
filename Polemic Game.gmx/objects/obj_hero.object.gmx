@@ -36,7 +36,16 @@ vSpd = 0;
 accel = 1;
 moveSpd = 5;
 ff = 1;
-weapon = instance_create(x,y,obj_gun);
+
+weaponList = ds_list_create();
+ds_list_add(weaponList,obj_sword);
+ds_list_add(weaponList,obj_gun);
+ds_list_add(weaponList,obj_tommyGun);
+equippedIndex = 0;
+nextEquippedIndex = 0;
+weapon = instance_create(x,y,ds_list_find_value(weaponList,equippedIndex));
+weaponName = object_get_name(weapon.object_index);
+
 swordState = "right";
 shootSpeed = 15;
 shootTimer = 0;
@@ -191,41 +200,32 @@ if (inst != noone)
 y-=vSpd;
 x+=hSpd;
 
+weaponName = object_get_name(weapon.object_index); //For debugging
+
 //Weapon switching
 if((keyboard_check_pressed(vk_shift)) || (mouse_wheel_up()) || (mouse_wheel_down()))
 {
-    switch(weapon.object_index)
+    if ((equippedIndex + 1) &gt;= (ds_list_size(weaponList)))
     {
-        case (obj_sword): //Sword to gun
+        nextEquippedIndex = equippedIndex - (ds_list_size(weaponList) - 1);
+    }
+    else
+    {
+        nextEquippedIndex = equippedIndex + 1;
+    }
+    //Debug cuz this shit isn't working
+    show_debug_message("eqIndex: " +string(equippedIndex) + ", nEqIndex: " + string(nextEquippedIndex) + ", weapon: " + object_get_name(weapon.object_index) 
+    + ", weaponAtIndex: " + object_get_name(ds_list_find_value(weaponList, equippedIndex)) + ", nextWeaponAtIndex: " + object_get_name(ds_list_find_value(weaponList, nextEquippedIndex)));
+    
+    if ((weapon.object_index != obj_sword) || ((weapon.object_index == obj_sword) &amp;&amp; (((swordState == "right") || (swordState == "left")))))
+    {
+        with(weapon)
         {
-            if ((swordState == "right") || (swordState == "left"))
-            {
-                with(weapon)
-                {
-                    instance_destroy();
-                }
-                weapon = instance_create(x+sprite_width/2,y+sprite_height/2,obj_gun);
-            }
-            break;
+            instance_destroy();
         }
-        case (obj_gun): //Gun to Tommy
-        {
-            with(weapon)
-            {
-                instance_destroy();
-            }
-            weapon = instance_create(x+sprite_width/2,y+sprite_height/2,obj_tommyGun);
-            break;
-        }
-        case (obj_tommyGun): //Tommy to sword
-        {
-            with(weapon)
-            {
-                instance_destroy();
-            }
-            weapon = instance_create(x+sprite_width/2,y+sprite_height/2,obj_sword);
-            break;
-        }
+        weapon = instance_create(x+sprite_width/2,y+sprite_height/2,ds_list_find_value(weaponList, nextEquippedIndex));
+        equippedIndex = nextEquippedIndex;
+        show_debug_message("switching from " + object_get_name(weapon.object_index) + " to " + object_get_name(ds_list_find_value(weaponList, equippedIndex)) + " eqIndex is " + string(equippedIndex));
     }
 }
 
@@ -341,7 +341,7 @@ if (weapon != noone)
     }
 }
 
-show_debug_message("weapon.image_angle: "+ string(weapon.image_angle));
+//show_debug_message("weapon.image_angle: "+ string(weapon.image_angle));
 //show_debug_message("vSpd: "+string(vSpd));
 //show_debug_message("hSpd: "+string(hSpd));
 </string>
