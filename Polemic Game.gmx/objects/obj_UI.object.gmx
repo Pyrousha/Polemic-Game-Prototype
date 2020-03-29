@@ -27,6 +27,7 @@
             <kind>1</kind>
             <string>display_set_gui_size(room_width, room_height);
 draw_set_font(fn_1);
+deadOpa = 0;
 </string>
           </argument>
         </arguments>
@@ -49,19 +50,32 @@ draw_set_font(fn_1);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (instance_number(obj_enemy) == 0)
+            <string>if (obj_hero.dead == "false")
 {
-    draw_set_halign(fa_center);
-    draw_set_valign(fa_middle);
-    image_angle += 1;
-    draw_set_colour(c_black);
-    draw_text_transformed(room_width / 2, room_height / 2, "YOU WIN!", 5, 5, image_angle);
-    draw_set_colour(c_white);
-    draw_text_transformed(room_width / 2, room_height / 2, "YOU WIN!", 4.9, 4.9, image_angle);
+    if (instance_number(obj_enemy) == 0)
+    {
+        draw_set_halign(fa_center);
+        draw_set_valign(fa_middle);
+        image_angle += 1;
+        draw_set_colour(c_black);
+        draw_text_transformed(room_width / 2, room_height / 2, "YOU WIN!", 5, 5, image_angle);
+        draw_set_colour(c_white);
+        draw_text_transformed(room_width / 2, room_height / 2, "YOU WIN!", 4.9, 4.9, image_angle);
+    }
+    else
+    {
+        draw_text(24,16,"Enemies Remaining: "+string(instance_number(obj_enemy)));
+    }
 }
 else
-{
-    draw_text(24,16,"Enemies Remaining: "+string(instance_number(obj_enemy)));
+{  
+    draw_set_alpha(deadOpa);
+    deadOpa = min(0.95,deadOpa+0.05);
+    draw_set_colour(c_black);
+    draw_rectangle(0,0,room_width-1,room_height-1,false);
+    draw_set_colour(c_white);
+    draw_sprite(spr_you_died,0,room_width/2,room_height/2);
+    draw_set_alpha(1);
 }
 </string>
           </argument>

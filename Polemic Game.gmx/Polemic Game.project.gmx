@@ -26,6 +26,9 @@
       <sprite>sprites\spr_tommyGun</sprite>
       <sprite>sprites\spr_bullet</sprite>
     </sprites>
+    <sprites name="UI">
+      <sprite>sprites\spr_you_died</sprite>
+    </sprites>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
@@ -41,18 +44,21 @@
     </objects>
     <objects name="Characters">
       <object>objects\obj_hero</object>
-      <object>objects\obj_Ally</object>
       <object>objects\obj_enemy</object>
+      <object>objects\obj_ally</object>
       <object>objects\obj_aggroRange</object>
     </objects>
     <objects name="Swords">
       <object>objects\obj_sword</object>
+      <object>objects\obj_sword_enemy</object>
       <object>objects\obj_swing_hitbox</object>
+      <object>objects\obj_swing_hitbox_enemy</object>
     </objects>
     <objects name="Guns">
       <object>objects\obj_gun</object>
       <object>objects\obj_tommyGun</object>
       <object>objects\obj_bullet</object>
+      <object>objects\obj_bullet_enemy</object>
     </objects>
     <objects name="Misc">
       <object>objects\obj_grid</object>

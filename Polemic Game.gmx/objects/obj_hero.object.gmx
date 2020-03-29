@@ -52,6 +52,17 @@ shootTimer = 0;
 canShoot = "true";
 bulletCounter = 3;
 bulletInterval = 3;
+
+dead = "false";
+
+//HP + bar variables
+maxHp = 20;
+hp = maxHp;
+borderSize = 2;
+barWidth = 24;
+barHeight = 8;
+yOffset = 32;
+hpOpacity = 0.8;
 </string>
           </argument>
         </arguments>
@@ -112,7 +123,11 @@ if (bulletCounter &gt; 0)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//Friction Y
+            <string>if (dead == "true")
+{
+    exit;
+}
+//Friction Y
 if (!(keyboard_check(up)) &amp;&amp; !(keyboard_check(down)))
 {
     if (vSpd &gt; 0)
@@ -348,6 +363,65 @@ if (weapon != noone)
           </argument>
         </arguments>
       </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Taking Damage
+bulletInst = collision_rectangle(x,y,x+sprite_width-1,y+sprite_height-1,obj_bullet_enemy,false,true);
+if (bulletInst != noone)
+{
+    hp -= bulletInst.damage;
+    with (bulletInst)
+    {
+        instance_destroy();
+    }
+    if (hp &lt;= 0)
+    {
+        dead = "true";
+        with(weapon)
+        {
+            instance_destroy();
+        }
+    }
+}
+else
+{
+    swordInst = collision_rectangle(x,y,x+sprite_width-1,y+sprite_height-1,obj_swing_hitbox_enemy,false,true);
+    if(swordInst != noone)
+    {
+        swordInst = swordInst.swordBlade;
+        if (ds_list_find_index(swordInst.hitList,self) == -1)
+        {
+            ds_list_add(swordInst.hitList,self);
+            hp -= swordInst.damage;
+            if (hp &lt;= 0)
+            {
+                dead = "true";
+                with(weapon)
+                {
+                    instance_destroy();
+                }
+            }
+        }
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
     </event>
     <event eventtype="6" enumb="53">
       <action>
@@ -456,6 +530,42 @@ switch(weapon.object_index)
         }
         break;
     }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (dead == "false")
+{
+    draw_self();
+    hSize = obj_hero.sprite_width/2;
+    draw_set_alpha(hpOpacity);
+    //Outline
+    draw_set_colour(c_black);
+    draw_rectangle(x-barWidth-borderSize+hSize,y-yOffset-barHeight-borderSize,x+barWidth+borderSize+hSize,y-yOffset+barHeight+borderSize,false)
+    draw_set_colour(c_green);
+    draw_rectangle(x-barWidth+hSize,y-yOffset-barHeight,x-barWidth+(barWidth*2*(hp/maxHp))+hSize,y-yOffset+barHeight,false)
+
+    draw_set_alpha(1);
+    draw_set_colour(c_white);
 }
 </string>
           </argument>
