@@ -4,40 +4,72 @@
     <Config>Configs\Default</Config>
   </Configs>
   <NewExtensions/>
-  <sounds name="sound"/>
+  <sounds name="sound">
+    <sound>sound\snd_death</sound>
+  </sounds>
   <sprites name="sprites">
-    <sprite>sprites\spr_hero</sprite>
-    <sprite>sprites\spr_wall</sprite>
-    <sprite>sprites\spr_sword</sprite>
-    <sprite>sprites\spr_sword_swing_left</sprite>
-    <sprite>sprites\spr_sword_swing_right</sprite>
-    <sprite>sprites\spr_swing_hitbox</sprite>
-    <sprite>sprites\spr_gun</sprite>
-    <sprite>sprites\spr_bullet</sprite>
-    <sprite>sprites\Spr_ally</sprite>
-    <sprite>sprites\spr_enemy</sprite>
-    <sprite>sprites\spr_TommyGun</sprite>
+    <sprites name="Terrain">
+      <sprite>sprites\spr_wall</sprite>
+    </sprites>
+    <sprites name="Characters">
+      <sprite>sprites\spr_hero</sprite>
+      <sprite>sprites\Spr_ally</sprite>
+      <sprite>sprites\spr_enemy</sprite>
+      <sprite>sprites\spr_aggroRange</sprite>
+    </sprites>
+    <sprites name="Swords">
+      <sprite>sprites\spr_sword</sprite>
+      <sprite>sprites\spr_sword_swing_left</sprite>
+      <sprite>sprites\spr_sword_swing_right</sprite>
+      <sprite>sprites\spr_swing_hitbox</sprite>
+    </sprites>
+    <sprites name="Guns">
+      <sprite>sprites\spr_gun</sprite>
+      <sprite>sprites\spr_tommyGun</sprite>
+      <sprite>sprites\spr_bullet</sprite>
+    </sprites>
+    <sprites name="UI">
+      <sprite>sprites\spr_you_died</sprite>
+    </sprites>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
     <background>background\background1</background>
   </backgrounds>
   <paths name="paths"/>
-  <scripts name="scripts"/>
+  <fonts name="fonts">
+    <font>fonts\fn_1</font>
+  </fonts>
   <objects name="objects">
-    <object>objects\obj_hero</object>
-    <object>objects\obj_wall</object>
-    <object>objects\obj_sword</object>
-    <object>objects\obj_gun1</object>
-    <object>objects\obj_swing_hitbox</object>
-    <object>objects\obj_bullet</object>
-    <object>objects\obj_gun</object>
-    <object>objects\obj_Ally</object>
-    <object>objects\Obj_Enemy</object>
-    <object>objects\Obj_TommyGun</object>
+    <objects name="Terrain">
+      <object>objects\obj_wall</object>
+    </objects>
+    <objects name="Characters">
+      <object>objects\obj_hero</object>
+      <object>objects\obj_enemy</object>
+      <object>objects\obj_ally</object>
+      <object>objects\obj_aggroRange</object>
+    </objects>
+    <objects name="Swords">
+      <object>objects\obj_sword</object>
+      <object>objects\obj_sword_enemy</object>
+      <object>objects\obj_swing_hitbox</object>
+      <object>objects\obj_swing_hitbox_enemy</object>
+    </objects>
+    <objects name="Guns">
+      <object>objects\obj_gun</object>
+      <object>objects\obj_tommyGun</object>
+      <object>objects\obj_bullet</object>
+      <object>objects\obj_bullet_enemy</object>
+    </objects>
+    <objects name="Misc">
+      <object>objects\obj_grid</object>
+      <object>objects\obj_UI</object>
+    </objects>
   </objects>
   <rooms name="rooms">
     <room>rooms\room0</room>
+    <room>rooms\room2</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>

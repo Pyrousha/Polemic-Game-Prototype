@@ -25,11 +25,12 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>damage = obj_sword.damage;
+            <string>image_blend = c_purple;
+//Damage
 speed=7;
 image_speed=0;
 timer = 3;
-direction = point_direction(obj_hero.x+obj_hero.sprite_width/2,obj_hero.y+obj_hero.sprite_height/2,mouse_x,mouse_y);
+//Direction
 image_angle = direction-90;
 </string>
           </argument>
@@ -80,9 +81,12 @@ if (timer&lt;0)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (obj_hero.weapon.object_index == obj_sword)
+            <string>if (instance_exists(parent))
 {
-    ds_list_clear(obj_hero.weapon.hitList);
+    if (parent.weapon.type == "melee")
+    {
+        ds_list_clear(parent.weapon.hitList);
+    }
 }
 instance_destroy();
 </string>

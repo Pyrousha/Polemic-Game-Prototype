@@ -36,13 +36,33 @@ vSpd = 0;
 accel = 1;
 moveSpd = 5;
 ff = 1;
-weapon = instance_create(x,y,obj_gun);
+
+weaponList = ds_list_create();
+ds_list_add(weaponList,obj_sword);
+ds_list_add(weaponList,obj_gun);
+ds_list_add(weaponList,obj_tommyGun);
+equippedIndex = 0;
+nextEquippedIndex = 0;
+weapon = instance_create(x,y,ds_list_find_value(weaponList,equippedIndex));
+weaponName = object_get_name(weapon.object_index);
+
 swordState = "right";
 shootSpeed = 15;
 shootTimer = 0;
 canShoot = "true";
 bulletCounter = 3;
 bulletInterval = 3;
+
+dead = "false";
+
+//HP + bar variables
+maxHp = 20;
+hp = maxHp;
+borderSize = 2;
+barWidth = 24;
+barHeight = 8;
+yOffset = 32;
+hpOpacity = 0.8;
 </string>
           </argument>
         </arguments>
@@ -74,6 +94,7 @@ with(instance_create(0,0,obj_bullet))
     x = obj_hero.bulletX;
     y = obj_hero.bulletY;
     direction = obj_hero.bulletDir;
+    damage = obj_hero.weapon.damage;
 }
 bulletCounter--;
 if (bulletCounter &gt; 0)
@@ -102,7 +123,11 @@ if (bulletCounter &gt; 0)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//Friction Y
+            <string>if (dead == "true")
+{
+    exit;
+}
+//Friction Y
 if (!(keyboard_check(up)) &amp;&amp; !(keyboard_check(down)))
 {
     if (vSpd &gt; 0)
@@ -190,41 +215,32 @@ if (inst != noone)
 y-=vSpd;
 x+=hSpd;
 
+weaponName = object_get_name(weapon.object_index); //For debugging
+
 //Weapon switching
 if((keyboard_check_pressed(vk_shift)) || (mouse_wheel_up()) || (mouse_wheel_down()))
 {
-    switch(weapon.object_index)
+    if ((equippedIndex + 1) &gt;= (ds_list_size(weaponList)))
     {
-        case (obj_sword): //Sword to gun
+        nextEquippedIndex = equippedIndex - (ds_list_size(weaponList) - 1);
+    }
+    else
+    {
+        nextEquippedIndex = equippedIndex + 1;
+    }
+    //Debug cuz this shit isn't working
+    show_debug_message("eqIndex: " +string(equippedIndex) + ", nEqIndex: " + string(nextEquippedIndex) + ", weapon: " + object_get_name(weapon.object_index) 
+    + ", weaponAtIndex: " + object_get_name(ds_list_find_value(weaponList, equippedIndex)) + ", nextWeaponAtIndex: " + object_get_name(ds_list_find_value(weaponList, nextEquippedIndex)));
+    
+    if ((weapon.object_index != obj_sword) || ((weapon.object_index == obj_sword) &amp;&amp; (((swordState == "right") || (swordState == "left")))))
+    {
+        with(weapon)
         {
-            if ((swordState == "right") || (swordState == "left"))
-            {
-                with(weapon)
-                {
-                    instance_destroy();
-                }
-                weapon = instance_create(x+sprite_width/2,y+sprite_height/2,obj_gun);
-            }
-            break;
+            instance_destroy();
         }
-        case (obj_gun): //Gun to Tommy
-        {
-            with(weapon)
-            {
-                instance_destroy();
-            }
-            weapon = instance_create(x+sprite_width/2,y+sprite_height/2,Obj_TommyGun);
-            break;
-        }
-        case (Obj_TommyGun): //Tommy to sword
-        {
-            with(weapon)
-            {
-                instance_destroy();
-            }
-            weapon = instance_create(x+sprite_width/2,y+sprite_height/2,obj_sword);
-            break;
-        }
+        weapon = instance_create(x+sprite_width/2,y+sprite_height/2,ds_list_find_value(weaponList, nextEquippedIndex));
+        equippedIndex = nextEquippedIndex;
+        show_debug_message("switching from " + object_get_name(weapon.object_index) + " to " + object_get_name(ds_list_find_value(weaponList, equippedIndex)) + " eqIndex is " + string(equippedIndex));
     }
 }
 
@@ -291,7 +307,7 @@ if (weapon != noone)
             }
             break;
         }
-        case (Obj_TommyGun): //tommy-gun equipped
+        case (obj_tommyGun): //tommy-gun equipped
         {
             weapon.image_angle = point_direction(x+sprite_width/2, y+sprite_height/2, mouse_x, mouse_y);
             //Reloading
@@ -327,7 +343,7 @@ if (weapon != noone)
         weapon.depth = -1;
     }
     //Weapon mirror (if aplicable)
-    if ((weapon.object_index == obj_gun)||(weapon.object_index==Obj_TommyGun))
+    if ((weapon.object_index == obj_gun)||(weapon.object_index==obj_tommyGun))
     {
         if ((weapon.image_angle &gt; 90) &amp;&amp; (weapon.image_angle &lt;=270))
         {
@@ -340,9 +356,70 @@ if (weapon != noone)
     }
 }
 
-show_debug_message("weapon.image_angle: "+ string(weapon.image_angle));
+//show_debug_message("weapon.image_angle: "+ string(weapon.image_angle));
 //show_debug_message("vSpd: "+string(vSpd));
 //show_debug_message("hSpd: "+string(hSpd));
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Taking Damage
+bulletInst = collision_rectangle(x,y,x+sprite_width-1,y+sprite_height-1,obj_bullet_enemy,false,true);
+if (bulletInst != noone)
+{
+    hp -= bulletInst.damage;
+    with (bulletInst)
+    {
+        instance_destroy();
+    }
+    if (hp &lt;= 0)
+    {
+        audio_play_sound(snd_death, 10, false);
+        dead = "true";
+        with(weapon)
+        {
+            instance_destroy();
+        }
+    }
+}
+else
+{
+    swordInst = collision_rectangle(x,y,x+sprite_width-1,y+sprite_height-1,obj_swing_hitbox_enemy,false,true);
+    if(swordInst != noone)
+    {
+        swordInst = swordInst.swordBlade;
+        if (ds_list_find_index(swordInst.hitList,self) == -1)
+        {
+            ds_list_add(swordInst.hitList,self);
+            hp -= swordInst.damage;
+            if (hp &lt;= 0)
+            {
+                dead = "true";
+                audio_play_sound(snd_death, 10, false);
+                with(weapon)
+                {
+                    instance_destroy();
+                }
+            }
+        }
+    }
+}
 </string>
           </argument>
         </arguments>
@@ -376,14 +453,20 @@ switch(weapon.object_index)
             {
                 swordState = "RtoL";
                 weapon.sprite_index = spr_sword_swing_left;
-                instance_create(x+sprite_width/2,y+sprite_height/2,obj_swing_hitbox);
+                with (instance_create(x+sprite_width/2,y+sprite_height/2,obj_swing_hitbox))
+                {
+                    swordBlade = obj_hero.weapon;
+                }
                 break;
             }
             case ("left"):
             {
                 swordState = "LtoR";
                 weapon.sprite_index = spr_sword_swing_right;
-                instance_create(x+sprite_width/2,y+sprite_height/2,obj_swing_hitbox);
+                with (instance_create(x+sprite_width/2,y+sprite_height/2,obj_swing_hitbox))
+                {
+                    swordBlade = obj_hero.weapon;
+                }
                 break;
             }
         }
@@ -400,13 +483,14 @@ switch(weapon.object_index)
                 x = obj_hero.bulletX;
                 y = obj_hero.bulletY;
                 direction = obj_hero.bulletDir;
+                damage = obj_hero.weapon.damage;
             }
             shootTimer = shootSpeed;
             canShoot = "false";
         }
         break;
     }
-    case (Obj_TommyGun):
+    case (obj_tommyGun):
     {
         if (canShoot == "true")
         {
@@ -418,6 +502,7 @@ switch(weapon.object_index)
                 x = obj_hero.bulletX;
                 y = obj_hero.bulletY;
                 direction = obj_hero.bulletDir;
+                damage = obj_hero.weapon.damage;
             }
             alarm[0] = bulletInterval;
             bulletCounter = 3;
@@ -426,7 +511,7 @@ switch(weapon.object_index)
         }
         break;
     }
-    case (Obj_shotGun):
+    case (obj_shotGun):
     {
         if (canShoot == "true")
         {
@@ -439,6 +524,7 @@ switch(weapon.object_index)
                     x = obj_hero.bulletX;
                     y = obj_hero.bulletY;
                     direction = obj_hero.bulletDir + (10*obj_hero.i);
+                    damage = obj_hero.weapon.damage;
                 }   
             }
             shootTimer = shootSpeed/2;
@@ -446,6 +532,42 @@ switch(weapon.object_index)
         }
         break;
     }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (dead == "false")
+{
+    draw_self();
+    hSize = obj_hero.sprite_width/2;
+    draw_set_alpha(hpOpacity);
+    //Outline
+    draw_set_colour(c_black);
+    draw_rectangle(x-barWidth-borderSize+hSize,y-yOffset-barHeight-borderSize,x+barWidth+borderSize+hSize,y-yOffset+barHeight+borderSize,false)
+    draw_set_colour(c_green);
+    draw_rectangle(x-barWidth+hSize,y-yOffset-barHeight,x-barWidth+(barWidth*2*(hp/maxHp))+hSize,y-yOffset+barHeight,false)
+
+    draw_set_alpha(1);
+    draw_set_colour(c_white);
 }
 </string>
           </argument>
