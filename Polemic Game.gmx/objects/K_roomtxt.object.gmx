@@ -26,16 +26,18 @@
           <argument>
             <kind>1</kind>
             <string>textList = ds_list_create()
-ds_list_add(textList,"A knight approaches you in full armor with a gold trim.  ");
-ds_list_add(textList,"K:By THE POPE IS THAT A TOMMY GUN??");
+ds_list_add(textList,"A knight approaches you in full armor with a gold trim.");
+ds_list_add(textList,"K: By THE POPE IS THAT A TOMMY GUN??");
 ds_list_add(textList,"K: You must give this to me, it is the lords will.");
-ds_list_add(textList,"K:It is the duty of the sheep to assist their shepard");
+ds_list_add(textList,"K: It is the duty of the sheep to assist their shepard");
 ds_list_add(textList,"You don't appreciate being called a sheep, and frankly you don't think this man knows Jesus at all");
 ds_list_add(textList,"He holds out a hand expectantly");
 ds_list_add(textList,"Give it to him? Y/N");
+ds_list_add(textList,"K: THANK YOU MY FRIEND, now let us continue on our journey!");
+ds_list_add(textList,"K: Fine, have it your way, I didn't want that stupid thing anyways...");
 i=0;
 
-scr_text(ds_list_find_value(textList,i),.5,200,200);
+scr_text(ds_list_find_value(textList,i),0.5,room_width/2,room_height/2);
 
 </string>
           </argument>
@@ -59,16 +61,38 @@ scr_text(ds_list_find_value(textList,i),.5,200,200);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (keyboard_check_pressed(vk_space))
+            <string>if (i == 6)
 {
-    i++;
+    if (keyboard_check_pressed(ord('Y')))
+    {
+        i = 7;
+        ds_list_add(obj_hero.allyList,obj_tommyGun);
+        ds_list_delete(obj_hero.weaponList,(ds_list_find_index(obj_hero.weaponList, obj_tommyGun)));
+        scr_text(ds_list_find_value(textList,i),1,room_width/2,room_height/2);
+    }
+    else if (keyboard_check_pressed(ord('N')))
+    {
+        i = 8;
+        scr_text(ds_list_find_value(textList,i),1,room_width/2,room_height/2);
+    }
+}
+if (keyboard_check_pressed(vk_space))
+{
+    if (i &gt;= 7)
+    {
+        room_goto_next();
+    }
+    if (i &lt; 6)
+    {
+        i++;
+        scr_text(ds_list_find_value(textList,i),0.5,room_width/2,room_height/2);
+    }
     if (i &gt;= ds_list_size(textList))
     {
         //Do whatever should happen after the text is done with
-        room_goto_next();
-        i = 0 //Just so the game doesn't crash because we have nothing above for now
+        //room_goto_next();
+        i --; //Just so the game doesn't crash because we have nothing above for now
     }
-    scr_text(ds_list_find_value(textList,i),.5,200,200);
 }
 
 

@@ -45,12 +45,12 @@ iFrameWeapon = noone;
 
 damage = 5;
 
-weapon = instance_create(x,y,obj_gun);
+/*weapon = instance_create(x,y,obj_gun);
 if (weapon != noone)
 {
     weapon.damage = damage;
     weapon.parent = self;
-}
+}*/
 swordState = "right";
 
 //HP + bar variables
@@ -64,11 +64,14 @@ hpOpacity = 0.8;
 
 //Create the path
 path = path_add();
+targX = x;
+targY = y;
 
 //Gun properties
 shootSpeed = 20;
 shootTimer = 0;
 canShoot = "true";
+show_debug_message("endofcreate");
 </string>
           </argument>
         </arguments>

@@ -38,6 +38,7 @@ moveSpd = 5;
 ff = 1;
 
 weaponList = ds_list_create();
+allyList = ds_list_create();
 //ds_list_add(weaponList,obj_sword);
 //ds_list_add(weaponList,obj_gun);
 //ds_list_add(weaponList,obj_tommyGun);
@@ -440,6 +441,78 @@ else
         </arguments>
       </action>
     </event>
+    <event eventtype="4" ename="obj_tommyGun_pickup">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>ds_list_add(weaponList,obj_tommyGun);
+equippedIndex = ds_list_find_index(weaponList,obj_tommyGun);
+with(weapon)
+{
+    instance_destroy();
+}
+weapon = instance_create(x,y,ds_list_find_value(weaponList,equippedIndex));
+weaponName = object_get_name(weapon.object_index);
+//scr_text("use the mouse wheel or shift to change weapons",1,x,y);
+with (obj_tommyGun_pickup)
+{
+    instance_destroy();
+}
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="4" ename="obj_gun_pickup">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>ds_list_add(weaponList,obj_gun);
+equippedIndex++;
+with(weapon)
+{
+    instance_destroy();
+}
+weapon = instance_create(x,y,ds_list_find_value(weaponList,equippedIndex));
+weaponName = object_get_name(weapon.object_index);
+scr_text("use the mouse wheel or shift to change weapons",1,x,y);
+with (obj_gun_pickup)
+{
+    instance_destroy();
+}
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="4" ename="obj_sword_pickup">
       <action>
         <libid>1</libid>
@@ -486,7 +559,7 @@ with (obj_sword_pickup)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (weapon == noone)
+            <string>if ((weapon == noone) || (visible = false) || (dead = "true"))
 {
     exit;
 }
@@ -603,7 +676,11 @@ switch(weapon.object_index)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(ds_list_size(weaponList) &lt; 1)
+            <string>swordState = "right";
+canShoot = "true";
+shootTimer = 0;
+equippedIndex = 0;
+if(ds_list_size(weaponList) &lt; 1)
 {
     weapon = noone;
 }
@@ -611,14 +688,76 @@ else
 {
     weapon = instance_create(x,y,ds_list_find_value(weaponList,equippedIndex));
     weaponName = object_get_name(weapon.object_index);
+    weapon.visible = false;
 }
-
+hp = maxHp;
+visible = false;
 switch(room)
 {
+    case (rm_entrance):
+    {
+        visible = true;
+        break;
+    }
     case (room0):
     {
-        x = 704;
-        y = 832;
+        x = 32;
+        y = 480;
+        visible = true;
+        if (weapon != noone)
+        {
+            weapon.visible = true;
+        }
+        break;
+    }
+    case (room1):
+    {
+        x = 128;
+        y = 704;
+        visible = true;
+        if (weapon != noone)
+        {
+            weapon.visible = true;
+        }
+        break;
+    }
+    case (room2):
+    {
+        x = 448;
+        y = 576;
+        visible = true;
+        if (weapon != noone)
+        {
+            weapon.visible = true;
+        }
+        break;
+    }
+    case (FinalRoom):
+    {
+        x = 448;
+        y = 736;
+        visible = true;
+        if (weapon != noone)
+        {
+            weapon.visible = true;
+        }
+        break;
+    }
+}
+
+if ((ds_list_size(allyList) &gt;= 1) &amp;&amp; (visible = true))
+{
+    for (j = 0; j&lt;ds_list_size(allyList); j++)
+    {
+        allyInst = instance_create(x+32*j,y+32*j,obj_ally);
+        allyInst.weapon = instance_create(x,y,ds_list_find_value(allyList,j));
+        with (allyInst)
+        {
+            show_debug_message("aftercreate");
+            weapon.damage = damage;
+            weapon.parent = self;
+            shootSpeed = weapon.shootSpeed;
+        }
     }
 }
 

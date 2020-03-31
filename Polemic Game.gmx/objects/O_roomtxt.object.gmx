@@ -35,7 +35,7 @@ ds_list_add(textList,"70, 75 bucks.");
 ds_list_add(textList,"So you bring your trusty sword and approach the cave.");
 i=0;
 
-scr_text(ds_list_find_value(textList,i),.5,200,200);
+scr_text(ds_list_find_value(textList,i),0.5,room_width/2,room_height/2);
 </string>
           </argument>
         </arguments>
@@ -67,7 +67,7 @@ scr_text(ds_list_find_value(textList,i),.5,200,200);
         room_goto_next();
         i = 0 //Just so the game doesn't crash because we have nothing above for now
     }
-    scr_text(ds_list_find_value(textList,i),.5,200,200);
+    scr_text(ds_list_find_value(textList,i),0.5,room_width/2,room_height/2);
 }
 </string>
           </argument>

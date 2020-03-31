@@ -245,10 +245,6 @@ if (bulletInst != noone)
     with (bulletInst)
     {
         instance_destroy();
-        if (instance_number(obj_enemy) &lt;= 1)
-{
-  room_goto_next();
-}
     }
     if (hp &lt;= 0)
     {
@@ -258,11 +254,11 @@ if (bulletInst != noone)
             with (weapon)
             {
                 instance_destroy();
-                if (instance_number(obj_enemy) &lt;= 1)
-{
-  room_goto_next();
-}
             }
+        }
+        if (instance_number(obj_enemy) &lt;= 1)
+        {
+            room_goto_next();
         }
         instance_destroy();
     }
@@ -286,6 +282,10 @@ else
                     {
                         instance_destroy();
                     }
+                }
+                if (instance_number(obj_enemy) &lt;= 1)
+                {
+                    room_goto_next();
                 }
                 instance_destroy();
             }

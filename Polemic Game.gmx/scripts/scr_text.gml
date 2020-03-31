@@ -22,4 +22,6 @@ with (txt)
 
     boxwidth= text_width + (padding*2);
     boxheight = text_height + (padding*2);
+    x = ((2*x) - boxwidth)/2;
+    y = ((2*y) - boxheight)/2;
 }

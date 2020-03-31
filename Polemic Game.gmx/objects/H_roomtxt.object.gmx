@@ -35,7 +35,7 @@ ds_list_add(textList,"Her left leg is mangled below the knee. The room is litter
 ds_list_add(textList,"Give it to her? Y/N");
 i=0;
 
-scr_text(ds_list_find_value(textList,i),.5,200,200);
+scr_text(ds_list_find_value(textList,i),0.5,room_width/2,room_height/2);
 
 
 
@@ -72,7 +72,7 @@ if (keyboard_check_pressed(vk_space))
         room_goto_next();
         i = 0 //Just so the game doesn't crash because we have nothing above for now
     }
-    scr_text(ds_list_find_value(textList,i),.5,200,200);
+    scr_text(ds_list_find_value(textList,i),0.5,room_width/2,room_height/2);
 }
 
 </string>

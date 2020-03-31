@@ -59,6 +59,8 @@
     </objects>
     <objects name="items">
       <object>objects\obj_sword_pickup</object>
+      <object>objects\obj_gun_pickup</object>
+      <object>objects\obj_tommyGun_pickup</object>
     </objects>
     <objects name="Swords">
       <object>objects\obj_sword</object>
@@ -97,6 +99,7 @@
     <room>rooms\HuntressRoom</room>
     <room>rooms\FinalRoom</room>
     <room>rooms\Ending</room>
+    <room>rooms\room10</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>
