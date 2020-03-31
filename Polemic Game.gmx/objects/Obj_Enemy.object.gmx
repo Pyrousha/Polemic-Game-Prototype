@@ -269,6 +269,11 @@ else
     if(swordInst != noone)
     {
         swordInst = swordInst.swordBlade;
+        if (!instance_exists(swordInst))
+        {
+            show_debug_message("BRUH WTF");
+            exit;
+        }
         if (ds_list_find_index(swordInst.hitList,self) == -1)
         {
             ds_list_add(swordInst.hitList,self);
