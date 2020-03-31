@@ -100,6 +100,7 @@
     <room>rooms\FinalRoom</room>
     <room>rooms\Ending</room>
     <room>rooms\room10</room>
+    <room>rooms\room2_new</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>
