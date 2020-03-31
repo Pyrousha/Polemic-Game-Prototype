@@ -25,18 +25,13 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>textList = ds_list_create()
-ds_list_add(textList,"A young man stares at you from the other end of the room. You stare back until he smiles back. ");
-ds_list_add(textList,"YM: Hey I don't how else to say this but I'd like that gun");
-ds_list_add(textList,"YM: I know, I know, you just killed a shit load of guys to get it, but let me explain it from my end");
-ds_list_add(textList,"YM: I want it, I want your stuff, for free");
-ds_list_add(textList,"YM: I'm a goo-goo ga-ga babyyyyy, I mean fuckin' look at me");
-ds_list_add(textList,"He looks at you, and his expression seems like the look someone would give someone they told an inside joke to, mixed with puppy dog eyes");
-ds_list_add(textList,"Give Him The Gun Y/N");
+            <string>
+textList = ds_list_create()
+ds_list_add(textList,"You won , but you didn’t do it alone. You can’t ever use all the items by yourself, and maybe someone who’d have your back down the road needs you to have theirs right now.");
+
 i=0;
 
-scr_text(ds_list_find_value(textList,i),1,200,200);
-
+scr_text(ds_list_find_value(textList,i),.5,200,200);
 
 </string>
           </argument>
@@ -60,17 +55,20 @@ scr_text(ds_list_find_value(textList,i),1,200,200);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (keyboard_check_pressed(vk_space))
+            <string>
+if (keyboard_check_pressed(vk_space))
 {
     i++;
     if (i &gt;= ds_list_size(textList))
     {
         //Do whatever should happen after the text is done with
-    
+        room_goto_next();
         i = 0 //Just so the game doesn't crash because we have nothing above for now
     }
-    scr_text(ds_list_find_value(textList,i),0.5,200,200);
+    scr_text(ds_list_find_value(textList,i),.5,200,200);
 }
+
+
 </string>
           </argument>
         </arguments>
