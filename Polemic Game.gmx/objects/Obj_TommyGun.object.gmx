@@ -25,7 +25,8 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>damage = 1;
+            <string>type = "gun";
+damage = 1;
 </string>
           </argument>
         </arguments>

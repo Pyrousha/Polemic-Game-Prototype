@@ -403,6 +403,14 @@ else
     swordInst = collision_rectangle(x,y,x+sprite_width-1,y+sprite_height-1,obj_swing_hitbox_enemy,false,true);
     if(swordInst != noone)
     {
+        if (!instance_exists(swordInst.swordBlade))
+        {
+            with (swordInst)
+            {
+                instance_destroy();
+            }
+            exit;
+        }
         swordInst = swordInst.swordBlade;
         if (ds_list_find_index(swordInst.hitList,self) == -1)
         {
