@@ -30,12 +30,15 @@ ds_list_add(textList,"A young man stares at you from the other end of the room. 
 ds_list_add(textList,"YM: Hey I don't how else to say this but I'd like that gun");
 ds_list_add(textList,"YM: I know, I know, you just killed a shit load of guys to get it, but let me explain it from my end");
 ds_list_add(textList,"YM: I want it, I want your stuff, for free");
-ds_list_add(textList,"YM: I'm a goo-goo ga-ga babyyyyy, I mean fuckin' look at me");
+ds_list_add(textList,"YM: I'm a goo-goo ga-ga babyyyyy, I mean look at me");
 ds_list_add(textList,"He looks at you, and his expression seems like the look someone would give someone they told an inside joke to, mixed with puppy dog eyes");
 ds_list_add(textList,"Give Him The Gun Y/N");
+ds_list_add(textList,"K: Woah you actually did it, thanks!");
+ds_list_add(textList,"K: AHHHHH but whyyyyyyyyy...");
+
 i=0;
 
-scr_text(ds_list_find_value(textList,i),1,200,200);
+scr_text(ds_list_find_value(textList,i),0.5,room_width/2,room_height/2);
 
 
 </string>
@@ -60,16 +63,38 @@ scr_text(ds_list_find_value(textList,i),1,200,200);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (keyboard_check_pressed(vk_space))
+            <string>if (i == 6)
 {
-    i++;
+    if (keyboard_check_pressed(ord('Y')))
+    {
+        i = 7;
+        ds_list_add(obj_hero.allyList,obj_gun);
+        ds_list_delete(obj_hero.weaponList,(ds_list_find_index(obj_hero.weaponList, obj_gun)));
+        scr_text(ds_list_find_value(textList,i),1,room_width/2,room_height/2);
+    }
+    else if (keyboard_check_pressed(ord('N')))
+    {
+        i = 8;
+        scr_text(ds_list_find_value(textList,i),1,room_width/2,room_height/2);
+    }
+}
+if (keyboard_check_pressed(vk_space))
+{
+    if (i &gt;= 7)
+    {
+        room_goto_next();
+    }
+    if (i&lt;6)
+    {
+        i++;
+        scr_text(ds_list_find_value(textList,i),0.5,room_width/2,room_height/2);
+    }
     if (i &gt;= ds_list_size(textList))
     {
         //Do whatever should happen after the text is done with
-    
-        i = 0 //Just so the game doesn't crash because we have nothing above for now
+        //room_goto_next();
+        i --; //Just so the game doesn't crash because we have nothing above for now
     }
-    scr_text(ds_list_find_value(textList,i),0.5,200,200);
 }
 </string>
           </argument>

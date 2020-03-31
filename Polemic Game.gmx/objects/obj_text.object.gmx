@@ -25,10 +25,10 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string> alpha= 0;
- print="";
- time=0;
- depth = depth - instance_number(obj_text);
+            <string>alpha= 0;
+print="";
+time=0;
+depth = depth - instance_number(obj_text);
 </string>
           </argument>
         </arguments>
@@ -80,6 +80,8 @@ maxlength
 );
 
 draw_set_alpha(1);
+
+//show_debug_message("x: "+string(x));
 
 </string>
           </argument>
