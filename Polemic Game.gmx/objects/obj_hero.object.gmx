@@ -76,6 +76,36 @@ hpOpacity = 0.8;
         </arguments>
       </action>
     </event>
+    <event eventtype="2" enumb="1">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>room_restart();
+x = startX;
+y = startY;
+dead = "false";
+swordState = "right";
+canShoot = "true";
+shootTimer = 0;
+equippedIndex = 0;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="2" enumb="0">
       <action>
         <libid>1</libid>
@@ -400,6 +430,7 @@ if (bulletInst != noone)
     {
         audio_play_sound(snd_death, 10, false);
         dead = "true";
+        alarm[1] = 5*60;
         with(weapon)
         {
             instance_destroy();
@@ -428,6 +459,7 @@ else
             {
                 dead = "true";
                 audio_play_sound(snd_death, 10, false);
+                alarm[1] = 5*60;
                 with(weapon)
                 {
                     instance_destroy();
@@ -766,6 +798,8 @@ if ((ds_list_size(allyList) &gt;= 1) &amp;&amp; (visible = true))
     }
 }
 
+startX = x;
+startY = y;
 /*swordState = "right";
 shootSpeed = 15;
 shootTimer = 0;
