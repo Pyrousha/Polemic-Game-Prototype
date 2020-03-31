@@ -4,7 +4,7 @@
   <solid>0</solid>
   <visible>-1</visible>
   <depth>0</depth>
-  <persistent>0</persistent>
+  <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
@@ -38,13 +38,20 @@ moveSpd = 5;
 ff = 1;
 
 weaponList = ds_list_create();
-ds_list_add(weaponList,obj_sword);
-ds_list_add(weaponList,obj_gun);
-ds_list_add(weaponList,obj_tommyGun);
+//ds_list_add(weaponList,obj_sword);
+//ds_list_add(weaponList,obj_gun);
+//ds_list_add(weaponList,obj_tommyGun);
 equippedIndex = 0;
 nextEquippedIndex = 0;
-weapon = instance_create(x,y,ds_list_find_value(weaponList,equippedIndex));
-weaponName = object_get_name(weapon.object_index);
+if(ds_list_size(weaponList) &lt; 1)
+{
+    weapon = noone;
+}
+else
+{
+    weapon = instance_create(x,y,ds_list_find_value(weaponList,equippedIndex));
+    weaponName = object_get_name(weapon.object_index);
+}
 
 swordState = "right";
 shootSpeed = 15;
@@ -215,7 +222,7 @@ if (inst != noone)
 y-=vSpd;
 x+=hSpd;
 
-weaponName = object_get_name(weapon.object_index); //For debugging
+//weaponName = object_get_name(weapon.object_index); //For debugging
 
 //Weapon switching
 if((keyboard_check_pressed(vk_shift)) || (mouse_wheel_up()) || (mouse_wheel_down()))
@@ -433,6 +440,35 @@ else
         </arguments>
       </action>
     </event>
+    <event eventtype="4" ename="obj_sword_pickup">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>ds_list_add(weaponList,obj_sword);
+weapon = instance_create(x,y,ds_list_find_value(weaponList,equippedIndex));
+weaponName = object_get_name(weapon.object_index);
+with (obj_sword_pickup)
+{
+    instance_destroy();
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="6" enumb="53">
       <action>
         <libid>1</libid>
@@ -450,7 +486,11 @@ else
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>bulletDir = point_direction(x+sprite_width/2,y+sprite_height/2,mouse_x,mouse_y);
+            <string>if (weapon == noone)
+{
+    exit;
+}
+bulletDir = point_direction(x+sprite_width/2,y+sprite_height/2,mouse_x,mouse_y);
 switch(weapon.object_index)
 {
     case (obj_sword):
@@ -541,6 +581,64 @@ switch(weapon.object_index)
         break;
     }
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="4">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if(ds_list_size(weaponList) &lt; 1)
+{
+    weapon = noone;
+}
+else
+{
+    weapon = instance_create(x,y,ds_list_find_value(weaponList,equippedIndex));
+    weaponName = object_get_name(weapon.object_index);
+}
+
+switch(room)
+{
+    case (room0):
+    {
+        x = 704;
+        y = 832;
+    }
+}
+
+/*swordState = "right";
+shootSpeed = 15;
+shootTimer = 0;
+canShoot = "true";
+bulletCounter = 3;
+bulletInterval = 3;
+
+dead = "false";
+
+//HP + bar variables
+maxHp = 20;
+hp = maxHp;
+borderSize = 2;
+barWidth = 24;
+barHeight = 8;
+yOffset = 32;
+hpOpacity = 0.8;*/
 </string>
           </argument>
         </arguments>
