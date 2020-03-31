@@ -26,6 +26,8 @@
           <argument>
             <kind>1</kind>
             <string>textList = ds_list_create()
+ds_list_add(textList,"A Ornate box sits in the middle of the room # You rush it and tear the lid off ");
+ds_list_add(textList,"YOU GOT A .... TommyGun?  ");
 ds_list_add(textList,"A knight approaches you in full armor with a gold trim.  ");
 ds_list_add(textList,"K:By THE POPE IS THAT A TOMMY GUN??");
 ds_list_add(textList,"K: You must give this to me, it is the lords will.");
