@@ -101,6 +101,111 @@ swordState = "right";
 canShoot = "true";
 shootTimer = 0;
 equippedIndex = 0;
+if(ds_list_size(weaponList) &lt; 1)
+{
+    weapon = noone;
+}
+else
+{
+    weapon = instance_create(x,y,ds_list_find_value(weaponList,equippedIndex));
+    weaponName = object_get_name(weapon.object_index);
+    weapon.visible = false;
+}
+hp = maxHp;
+visible = false;
+switch(room)
+{
+    case (rm_entrance):
+    {
+        visible = true;
+        break;
+    }
+    case (room0):
+    {
+        x = 32;
+        y = 480;
+        visible = true;
+        if (weapon != noone)
+        {
+            weapon.visible = true;
+        }
+        break;
+    }
+    case (room1):
+    {
+        x = 128;
+        y = 704;
+        visible = true;
+        if (weapon != noone)
+        {
+            weapon.visible = true;
+        }
+        break;
+    }
+    case (room2):
+    {
+        x = 32;
+        y = 1660;
+        visible = true;
+        if (weapon != noone)
+        {
+            weapon.visible = true;
+        }
+        break;
+    }
+    case (FinalRoom):
+    {
+        x = 448;
+        y = 736;
+        visible = true;
+        if (weapon != noone)
+        {
+            weapon.visible = true;
+        }
+        break;
+    }
+}
+
+if ((room != rm_entrance) &amp;&amp; (visible == true))
+{
+    instance_create(x,y,obj_UI);
+}
+
+if ((ds_list_size(allyList) &gt;= 1) &amp;&amp; (visible = true))
+{
+    for (j = 0; j&lt;ds_list_size(allyList); j++)
+    {
+        allyInst = instance_create(x+32*j,y+32*j,obj_ally);
+        allyInst.weapon = instance_create(x,y,ds_list_find_value(allyList,j));
+        with (allyInst)
+        {
+            show_debug_message("aftercreate");
+            weapon.damage = damage;
+            weapon.parent = self;
+            shootSpeed = weapon.shootSpeed;
+        }
+    }
+}
+
+startX = x;
+startY = y;
+/*swordState = "right";
+shootSpeed = 15;
+shootTimer = 0;
+canShoot = "true";
+bulletCounter = 3;
+bulletInterval = 3;
+
+dead = "false";
+
+//HP + bar variables
+maxHp = 20;
+hp = maxHp;
+borderSize = 2;
+barWidth = 24;
+barHeight = 8;
+yOffset = 32;
+hpOpacity = 0.8;*/
 </string>
           </argument>
         </arguments>
