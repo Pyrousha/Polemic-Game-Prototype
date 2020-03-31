@@ -16,6 +16,7 @@
       <sprite>sprites\Spr_ally</sprite>
       <sprite>sprites\spr_enemy</sprite>
       <sprite>sprites\spr_aggroRange</sprite>
+      <sprite>sprites\Spr_Gunner</sprite>
     </sprites>
     <sprites name="Swords">
       <sprite>sprites\spr_sword</sprite>
@@ -37,8 +38,12 @@
     <background>background\background1</background>
   </backgrounds>
   <paths name="paths"/>
+  <scripts name="scripts">
+    <script>scripts\scr_text.gml</script>
+  </scripts>
   <fonts name="fonts">
     <font>fonts\fn_1</font>
+    <font>fonts\Sfnt</font>
   </fonts>
   <objects name="objects">
     <objects name="Terrain">
@@ -49,6 +54,7 @@
       <object>objects\obj_enemy</object>
       <object>objects\obj_ally</object>
       <object>objects\obj_aggroRange</object>
+      <object>objects\Obj_Gunner</object>
     </objects>
     <objects name="Swords">
       <object>objects\obj_sword</object>
@@ -65,10 +71,16 @@
     <objects name="Misc">
       <object>objects\obj_grid</object>
       <object>objects\obj_UI</object>
+      <object>objects\obj_text</object>
+    </objects>
+    <objects name="Room_Texts">
+      <object>objects\O_roomtxt</object>
     </objects>
   </objects>
   <rooms name="rooms">
+    <room>rooms\Opening_room</room>
     <room>rooms\room0</room>
+    <room>rooms\test_room</room>
     <room>rooms\room2</room>
   </rooms>
   <help>
