@@ -55,6 +55,10 @@
       <object>objects\obj_ally</object>
       <object>objects\obj_aggroRange</object>
       <object>objects\Obj_Gunner</object>
+      <object>objects\obj_npc</object>
+    </objects>
+    <objects name="items">
+      <object>objects\obj_sword_pickup</object>
     </objects>
     <objects name="Swords">
       <object>objects\obj_sword</object>
@@ -79,6 +83,7 @@
   </objects>
   <rooms name="rooms">
     <room>rooms\Opening_room</room>
+    <room>rooms\rm_entrance</room>
     <room>rooms\room0</room>
     <room>rooms\test_room</room>
     <room>rooms\room2</room>

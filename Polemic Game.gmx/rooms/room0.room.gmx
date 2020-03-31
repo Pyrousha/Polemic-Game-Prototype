@@ -493,7 +493,6 @@
     <instance objName="obj_wall" x="1216" y="1280" name="inst_39F703F4" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_wall" x="1248" y="1248" name="inst_63D1CAEA" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_enemy" x="2176" y="1280" name="inst_C2BAE5B8" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_hero" x="736" y="832" name="inst_C039CBC7" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_enemy" x="1120" y="448" name="inst_92071939" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_enemy" x="1536" y="544" name="inst_6D134BE5" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_enemy" x="2208" y="448" name="inst_F7B727B5" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
