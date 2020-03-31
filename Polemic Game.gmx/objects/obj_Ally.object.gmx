@@ -31,8 +31,8 @@ vsp=0;
 
 aggroRange = 300;
 //deAggroRange = aggroRange;
-attackRange = 300;
-followDist = sprite_width*3;
+attackRange = 200;
+followDist = sprite_width*4;
 moveSpeed = 4;
 
 aggroObj = instance_create(x,y,obj_aggroRange);
@@ -93,11 +93,18 @@ canShoot = "true";
             <kind>1</kind>
             <string>heroX = obj_hero.x+obj_hero.sprite_width/2;
 heroY = obj_hero.y+obj_hero.sprite_height/2;
-inst = (collision_circle(x,y,aggroRange,obj_enemy,false,true))
+inst = instance_nearest(x, y, obj_enemy);
 if (inst != noone)
 {
-    targX = inst.x;
-    targY = inst.y;
+    if (point_distance(x,y,inst.x,inst.y) &gt; aggroRange)
+    {
+        inst = noone;
+    }
+    else
+    {
+        targX = inst.x;
+        targY = inst.y;
+    }
 }
 //weapon stuff
 if (weapon != noone)
@@ -227,13 +234,7 @@ switch (state)
     {
         if (inst == noone)
         {
-            var tx = (((heroX) div 32)*32 +16);
-            var ty = (((heroY) div 32)*32 +16);
-
-            if (mp_grid_path(global.grid, path, x, y, tx, ty, 1))
-            {
-                path_start(path,moveSpeed,path_action_stop,false);
-            }
+            state = "follow";
             break;
         }
         if (point_distance(x,y,targX,targY) &lt;= attackRange)
@@ -302,21 +303,28 @@ switch (state)
                 }
             }
         }
-        /*if ((point_distance(x,y,obj_hero.x+obj_hero.sprite_width/2,obj_hero.y+obj_hero.sprite_height/2) &gt; deAggroRange) &amp;&amp; (hp = maxHp)) //deaggro
-        {
-            path_end();
-            state = monster.ECalm;
-        }
         else
         {
-            var tx = (((obj_hero.x + obj_hero.sprite_width/2) div 32)*32 +16);
-            var ty = (((obj_hero.y + obj_hero.sprite_height/2) div 32)*32 +16);
+            var tx = (((targX) div 32)*32);
+            var ty = (((targY) div 32)*32);
+            if (mp_grid_path(global.grid, path, x, y, tx, ty, 1))
+            {
+                path_start(path,moveSpeed,path_action_stop,false);
+            }
+            break;
+        }
+        if (point_distance(x,y,heroX,heroY) &gt; 2*followDist)
+        {
+            var tx = (((heroX) div 32)*32 +16);
+            var ty = (((heroY) div 32)*32 +16);
 
             if (mp_grid_path(global.grid, path, x, y, tx, ty, 1))
             {
-                path_start(path,4,path_action_stop,false);
+                path_start(path,moveSpeed,path_action_stop,false);
             }
-        }*/
+            break;
+        }
+        break;
     }
 }
 
@@ -400,7 +408,7 @@ draw_set_alpha(hpOpacity);
 //Outline
 draw_set_colour(c_black);
 draw_rectangle(x-barWidth-borderSize,y-yOffset-barHeight-borderSize,x+barWidth+borderSize,y-yOffset+barHeight+borderSize,false)
-draw_set_colour(c_red);
+draw_set_colour(c_blue);
 draw_rectangle(x-barWidth,y-yOffset-barHeight,x-barWidth+(barWidth*2*(hp/maxHp)),y-yOffset+barHeight,false)
 
 draw_set_alpha(1);
