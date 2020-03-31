@@ -4,7 +4,7 @@
   <solid>0</solid>
   <visible>-1</visible>
   <depth>0</depth>
-  <persistent>-1</persistent>
+  <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
@@ -64,6 +64,9 @@ deadOpa = 0;
     }
     else
     {
+        draw_set_halign(fa_left);
+        draw_set_valign(fa_top);
+        draw_set_font(fn_1);
         draw_text(24,16,"Enemies Remaining: "+string(instance_number(obj_enemy)));
     }
 }

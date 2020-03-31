@@ -745,6 +745,11 @@ switch(room)
     }
 }
 
+if ((room != rm_entrance) &amp;&amp; (visible == true))
+{
+    instance_create(x,y,obj_UI);
+}
+
 if ((ds_list_size(allyList) &gt;= 1) &amp;&amp; (visible = true))
 {
     for (j = 0; j&lt;ds_list_size(allyList); j++)
