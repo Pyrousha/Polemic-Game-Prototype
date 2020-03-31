@@ -76,17 +76,27 @@
       <object>objects\obj_grid</object>
       <object>objects\obj_UI</object>
       <object>objects\obj_text</object>
+      <object>objects\RoomMover</object>
     </objects>
     <objects name="Room_Texts">
       <object>objects\O_roomtxt</object>
+      <object>objects\A_roomtxt</object>
+      <object>objects\K_roomtxt</object>
+      <object>objects\H_roomtxt</object>
+      <object>objects\E_roomtxt</object>
     </objects>
   </objects>
   <rooms name="rooms">
     <room>rooms\Opening_room</room>
     <room>rooms\rm_entrance</room>
     <room>rooms\room0</room>
-    <room>rooms\test_room</room>
+    <room>rooms\AdventurerRoom</room>
+    <room>rooms\room1</room>
+    <room>rooms\KnightRoom</room>
     <room>rooms\room2</room>
+    <room>rooms\HuntressRoom</room>
+    <room>rooms\FinalRoom</room>
+    <room>rooms\Ending</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>

@@ -26,16 +26,20 @@
           <argument>
             <kind>1</kind>
             <string>textList = ds_list_create()
-ds_list_add(textList,"The Kingdom of Allegoria is known for being remarkably wealthy.# This works out well because you happen to be remarkably poor. ");
-ds_list_add(textList,"I mean you’ve been told you’re rich in friends # but you can’t sell friends for groceries.");
-ds_list_add(textList,"Or at least you wouldn’t be able to live with yourself if you did.");
+ds_list_add(textList,"A tired woman slowly approaches you, her stride is confident but hampered by her various injuries. ");
+ds_list_add(textList,"H:Hello I am an adventurer who was sent to these caves before you");
+ds_list_add(textList,"I’m truly sorry for the request but could I perhaps have your blade?");
 ds_list_add(textList,"Luckily the Kingdom has posted that anyone able to clear out the bandits in this cave # will receive 90 Limited Edition Spider-Man Stem-Ware Wine Glasses.");
-ds_list_add(textList,"You figure you can sell those on Amazon make, like");
-ds_list_add(textList,"70, 75 bucks.");
-ds_list_add(textList,"So you bring your trusty sword and approach the cave.");
+ds_list_add(textList,"An adventurers blade is their life So I’d understand if you say no but I am in desperate need of a splint for my wound");
+ds_list_add(textList,"Her left leg is mangled below the knee. The room is littered with hundreds of Bandit corpses. You surely would have died if you had encountered this room before she did.");
+ds_list_add(textList,"Give it to her? Y/N");
 i=0;
 
 scr_text(ds_list_find_value(textList,i),.5,200,200);
+
+
+
+
 </string>
           </argument>
         </arguments>
@@ -58,7 +62,8 @@ scr_text(ds_list_find_value(textList,i),.5,200,200);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (keyboard_check_pressed(vk_space))
+            <string>
+if (keyboard_check_pressed(vk_space))
 {
     i++;
     if (i &gt;= ds_list_size(textList))
@@ -69,6 +74,7 @@ scr_text(ds_list_find_value(textList,i),.5,200,200);
     }
     scr_text(ds_list_find_value(textList,i),.5,200,200);
 }
+
 </string>
           </argument>
         </arguments>
