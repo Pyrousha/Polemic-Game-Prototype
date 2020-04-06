@@ -17,6 +17,8 @@
       <sprite>sprites\spr_enemy</sprite>
       <sprite>sprites\spr_aggroRange</sprite>
       <sprite>sprites\Spr_Gunner</sprite>
+      <sprite>sprites\spr_npc</sprite>
+      <sprite>sprites\spr_huntress</sprite>
     </sprites>
     <sprites name="Swords">
       <sprite>sprites\spr_sword</sprite>
