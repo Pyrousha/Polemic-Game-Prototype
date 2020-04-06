@@ -13,9 +13,11 @@
     </sprites>
     <sprites name="Characters">
       <sprite>sprites\spr_hero</sprite>
-      <sprite>sprites\Spr_ally</sprite>
+      <sprite>sprites\spr_ally</sprite>
       <sprite>sprites\spr_enemy</sprite>
-      <sprite>sprites\Spr_Gunner</sprite>
+      <sprite>sprites\spr_Gunner</sprite>
+      <sprite>sprites\spr_knight</sprite>
+      <sprite>sprites\spr_huntress</sprite>
     </sprites>
     <sprites name="Swords">
       <sprite>sprites\spr_sword</sprite>

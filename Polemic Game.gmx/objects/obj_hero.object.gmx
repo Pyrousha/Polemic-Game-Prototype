@@ -908,12 +908,34 @@ if ((ds_list_size(allyList) &gt;= 1) &amp;&amp; (visible = true))
     {
         allyInst = instance_create(x+32*j,y+32*j,obj_ally);
         allyInst.weapon = instance_create(x,y,ds_list_find_value(allyList,j));
+        attackRange = 500;
         with (allyInst)
         {
             show_debug_message("aftercreate");
-            weapon.damage = damage;
+            damage = weapon.damage;
             weapon.parent = self;
             shootSpeed = weapon.shootSpeed;
+            switch(weapon.object_index)
+            {
+                case("obj_gun"):
+                {
+                    sprite_index = spr_knight;
+                    attackRange = 500;
+                    break;
+                }
+                case ("obj_tommyGun"):
+                {
+                    sprite_index = spr_knight;
+                    attackRange = 300;
+                    break;
+                }
+                case ("obj_sword"):
+                {
+                    sprite_index = spr_huntress;
+                    attackRange = 128;
+                    break;
+                }   
+            }
         }
     }
 }
