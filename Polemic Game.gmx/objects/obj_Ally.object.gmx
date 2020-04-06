@@ -35,22 +35,10 @@ attackRange = 200;
 followDist = sprite_width*4;
 moveSpeed = 4;
 
-aggroObj = instance_create(x,y,obj_aggroRange);
-aggroObj.parent = self;
-aggroObj.image_xscale = (aggroRange/(aggroObj.sprite_width/2));
-aggroObj.image_yscale = aggroObj.image_xscale;
-aggroObj.image_alpha = c_blue;
-
 iFrameWeapon = noone;
 
 damage = 5;
 
-/*weapon = instance_create(x,y,obj_gun);
-if (weapon != noone)
-{
-    weapon.damage = damage;
-    weapon.parent = self;
-}*/
 swordState = "right";
 
 //HP + bar variables
@@ -71,7 +59,6 @@ targY = y;
 shootSpeed = 20;
 shootTimer = 0;
 canShoot = "true";
-show_debug_message("endofcreate");
 </string>
           </argument>
         </arguments>
@@ -330,9 +317,6 @@ switch (state)
         break;
     }
 }
-
-aggroObj.x = x;
-aggroObj.y = y;
 
 //Taking Damage
 bulletInst = collision_rectangle(x,y,x+sprite_width-1,y+sprite_height-1,obj_bullet_enemy,false,true);

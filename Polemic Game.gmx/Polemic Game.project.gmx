@@ -19,9 +19,12 @@
     </sprites>
     <sprites name="Swords">
       <sprite>sprites\spr_sword</sprite>
+      <sprite>sprites\spr_fists</sprite>
+      <sprite>sprites\spr_fists_hit</sprite>
       <sprite>sprites\spr_sword_swing_left</sprite>
       <sprite>sprites\spr_sword_swing_right</sprite>
       <sprite>sprites\spr_swing_hitbox</sprite>
+      <sprite>sprites\spr_punch_hitbox</sprite>
     </sprites>
     <sprites name="Guns">
       <sprite>sprites\spr_gun</sprite>
@@ -53,7 +56,7 @@
       <object>objects\obj_hero</object>
       <object>objects\obj_enemy</object>
       <object>objects\obj_ally</object>
-      <object>objects\Obj_Gunner</object>
+      <object>objects\obj_Gunner</object>
       <object>objects\obj_npc</object>
     </objects>
     <objects name="Player Items">
@@ -71,6 +74,8 @@
       <object>objects\obj_sword_enemy</object>
       <object>objects\obj_swing_hitbox</object>
       <object>objects\obj_swing_hitbox_enemy</object>
+      <object>objects\obj_fists_enemy</object>
+      <object>objects\obj_fists_swing_enemy</object>
     </objects>
     <objects name="Guns">
       <object>objects\obj_gun</object>
