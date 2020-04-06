@@ -15,10 +15,7 @@
       <sprite>sprites\spr_hero</sprite>
       <sprite>sprites\Spr_ally</sprite>
       <sprite>sprites\spr_enemy</sprite>
-      <sprite>sprites\spr_aggroRange</sprite>
       <sprite>sprites\Spr_Gunner</sprite>
-      <sprite>sprites\spr_npc</sprite>
-      <sprite>sprites\spr_huntress</sprite>
     </sprites>
     <sprites name="Swords">
       <sprite>sprites\spr_sword</sprite>
@@ -42,6 +39,7 @@
   <paths name="paths"/>
   <scripts name="scripts">
     <script>scripts\scr_text.gml</script>
+    <script>scripts\draw_text_outlined.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fn_1</font>
@@ -55,14 +53,18 @@
       <object>objects\obj_hero</object>
       <object>objects\obj_enemy</object>
       <object>objects\obj_ally</object>
-      <object>objects\obj_aggroRange</object>
       <object>objects\Obj_Gunner</object>
       <object>objects\obj_npc</object>
     </objects>
-    <objects name="items">
+    <objects name="Player Items">
       <object>objects\obj_sword_pickup</object>
       <object>objects\obj_gun_pickup</object>
       <object>objects\obj_tommyGun_pickup</object>
+    </objects>
+    <objects name="Enemy Items">
+      <object>objects\obj_eSwordItem</object>
+      <object>objects\obj_eGunItem</object>
+      <object>objects\obj_eTommyGunItem</object>
     </objects>
     <objects name="Swords">
       <object>objects\obj_sword</object>
@@ -72,7 +74,9 @@
     </objects>
     <objects name="Guns">
       <object>objects\obj_gun</object>
+      <object>objects\obj_gun_enemy</object>
       <object>objects\obj_tommyGun</object>
+      <object>objects\obj_tommyGun_enemy</object>
       <object>objects\obj_bullet</object>
       <object>objects\obj_bullet_enemy</object>
     </objects>

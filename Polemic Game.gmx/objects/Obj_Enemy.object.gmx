@@ -33,19 +33,46 @@ aggroRange = 300;
 deAggroRange = aggroRange;
 attackRange = 64;
 
-aggroObj = instance_create(x,y,obj_aggroRange);
-aggroObj.parent = self;
-aggroObj.image_xscale = (aggroRange/(aggroObj.sprite_width/2));
-aggroObj.image_yscale = aggroObj.image_xscale;
-
 iFrameWeapon = noone;
 
-damage = 3;
+weapon = noone;
 
-weapon = instance_create(x,y,obj_sword_enemy);
+weap = (collision_rectangle(x-sprite_width/2,y-sprite_height/2,x+sprite_width/2,y+sprite_height/2, obj_eSwordItem,false, true));
+if (weap != noone)
+{
+    weapon = instance_create(x,y,obj_sword_enemy);
+    with (weap)
+    {
+        instance_destroy();
+    }
+}
+else
+{ 
+    weap = (collision_rectangle(x-sprite_width/2,y-sprite_height/2,x+sprite_width/2,y+sprite_height/2, obj_eGunItem,false, true));
+    if (weap != noone)
+    {
+        weapon = instance_create(x,y,obj_gun_enemy);
+        with (weap)
+            {
+                instance_destroy();
+            }
+    }
+    else
+    { 
+        weap = (collision_rectangle(x-sprite_width/2,y-sprite_height/2,x+sprite_width/2,y+sprite_height/2, obj_eTommyGunItem,false, true));
+        if (weap != noone)
+        {
+            weapon = instance_create(x,y,obj_tommyGun_enemy);
+            with (weap)
+            {
+                instance_destroy();
+            }
+        }
+    }
+}
 if (weapon != noone)
 {
-    weapon.damage = damage;
+    damage = weapon.damage;
     weapon.parent = self;
 }
 swordState = "right";
@@ -60,6 +87,8 @@ yOffset = 32;
 hpOpacity = 0.8;
 //Create the path
 path = path_add();
+moveSpeed = 4;
+pathSpd = 0;
 </string>
           </argument>
         </arguments>
@@ -82,13 +111,15 @@ path = path_add();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//weapon stuff
+            <string>heroX = obj_hero.x + obj_hero.sprite_width/2;
+heroY = obj_hero.y + obj_hero.sprite_height/2;
+//weapon stuff
 if (weapon != noone)
 {
     weapon.x = x;
     weapon.y = y;
-    targX = obj_hero.x + obj_hero.sprite_width/2;
-    targY = obj_hero.y + obj_hero.sprite_height/2;
+    targX = heroX;
+    targY = heroY;
     switch (weapon.object_index.type)
     {
         case ("melee"): //sword equipped
@@ -162,24 +193,36 @@ if (weapon != noone)
     }
 }
 
+var tx = (((heroX) div 32)*32 + 16);
+var ty = (((heroY) div 32)*32 + 16);
+
+pathGood = "false";
+if (mp_grid_path(global.grid, path, x, y, tx, ty, 1))
+{
+    path_start(path,pathSpd,path_action_stop,false);
+    pathGood = "true";
+}
+
+show_debug_message("pathspeed: "+string(path_speed));
+
 switch (state)
 {
     case monster.ECalm:
     {
-        if (point_distance(x,y,obj_hero.x+obj_hero.sprite_width/2,obj_hero.y+obj_hero.sprite_height/2) &lt; aggroRange) 
+        if (pathGood = "true")
         {
-            state = monster.EAggro;
+            if ((path_get_length(path) &lt; aggroRange) || (hp != maxHp))
+            {
+                state = monster.EAggro;
+                pathSpd = moveSpeed;
+            }
         }
         break;
     }
     case monster.EAggro:
     {
-        /*hdir = sign(obj_hero.x-x);
-        vdir = sign(obj_hero.y-y);
-        x += hdir*2;
-        y += vdir*2;*/
         ///Create the path and move to the player
-        if (point_distance(x,y,obj_hero.x+obj_hero.sprite_width/2,obj_hero.y+obj_hero.sprite_height/2) &lt;= attackRange)
+        if (point_distance(x,y,heroX,heroY) &lt;= attackRange)
         {
             if (weapon != noone)
             {
@@ -197,7 +240,6 @@ switch (state)
                             hitbox.direction = point_direction(x,y,obj_hero.x+obj_hero.sprite_width/2,obj_hero.y+obj_hero.sprite_height/2);
                             hitbox.image_angle = hitbox.direction - 90;
                             hitbox.swordBlade = weapon;
-                            path_end();
                             break;
                         }
                         case ("left"):
@@ -210,33 +252,15 @@ switch (state)
                             hitbox.direction = point_direction(x,y,obj_hero.x+obj_hero.sprite_width/2,obj_hero.y+obj_hero.sprite_height/2);
                             hitbox.image_angle = hitbox.direction - 90;
                             hitbox.swordBlade = weapon;
-                            path_end();
                             break;
                         }
                     }
                 }
             }
         }
-        if ((point_distance(x,y,obj_hero.x+obj_hero.sprite_width/2,obj_hero.y+obj_hero.sprite_height/2) &gt; deAggroRange) &amp;&amp; (hp = maxHp)) //deaggro
-        {
-            path_end();
-            state = monster.ECalm;
-        }
-        else
-        {
-            var tx = (((obj_hero.x + obj_hero.sprite_width/2) div 32)*32 +16);
-            var ty = (((obj_hero.y + obj_hero.sprite_height/2) div 32)*32 +16);
-
-            if (mp_grid_path(global.grid, path, x, y, tx, ty, 1))
-            {
-                path_start(path,4,path_action_stop,false);
-            }
-        }
     }
 }
 
-aggroObj.x = x;
-aggroObj.y = y;
 
 bulletInst = collision_rectangle(x-sprite_width/2,y-sprite_height/2,x+sprite_width/2,y+sprite_height/2,obj_bullet,false,true);
 if (bulletInst != noone)
@@ -248,7 +272,6 @@ if (bulletInst != noone)
     }
     if (hp &lt;= 0)
     {
-        aggroObj.fadeOut = "true";
         if (weapon != noone)
         {
             with (weapon)
@@ -280,7 +303,6 @@ else
             hp -= swordInst.damage;
             if (hp &lt;= 0)
             {
-                aggroObj.fadeOut = "true";
                 if (weapon != noone)
                 {
                     with (weapon)
