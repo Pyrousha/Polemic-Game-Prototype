@@ -33,6 +33,8 @@ ds_list_add(textList,"Luckily the Kingdom has posted that anyone able to clear o
 ds_list_add(textList,"An adventurers blade is their life So I’d understand if you say no but I am in desperate need of a splint for my wound");
 ds_list_add(textList,"Her left leg is mangled below the knee. The room is littered with hundreds of Bandit corpses. You surely would have died if you had encountered this room before she did.");
 ds_list_add(textList,"Give it to her? Y/N");
+ds_list_add(textList,"Thank you! I shall do what I can to aid you in your quest");
+ds_list_add(textList,"I understand... Farewell");
 i=0;
 
 scr_text(ds_list_find_value(textList,i),0.5,room_width/2,room_height/2);
@@ -62,19 +64,44 @@ scr_text(ds_list_find_value(textList,i),0.5,room_width/2,room_height/2);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>
+            <string>if (i == 6)
+{
+    if (keyboard_check_pressed(ord('Y')))
+    {
+        i = 7;
+        ds_list_add(obj_hero.allyList,obj_sword);
+        ds_list_delete(obj_hero.weaponList,(ds_list_find_index(obj_hero.weaponList, obj_sword)));
+        scr_text(ds_list_find_value(textList,i),1,room_width/2,room_height/2);
+        with(obj_hero.weapon)
+        {
+            instance_destroy();
+        }
+        obj_hero.weapon = noone;
+    }
+    else if (keyboard_check_pressed(ord('N')))
+    {
+        i = 8;
+        scr_text(ds_list_find_value(textList,i),1,room_width/2,room_height/2);
+    }
+}
 if (keyboard_check_pressed(vk_space))
 {
-    i++;
+    if (i &gt;= 7)
+    {
+        room_goto_next();
+    }
+    if (i &lt; 6)
+    {
+        i++;
+        scr_text(ds_list_find_value(textList,i),0.5,room_width/2,room_height/2);
+    }
     if (i &gt;= ds_list_size(textList))
     {
         //Do whatever should happen after the text is done with
-        room_goto_next();
-        i = 0 //Just so the game doesn't crash because we have nothing above for now
+        //room_goto_next();
+        i --; //Just so the game doesn't crash because we have nothing above for now
     }
-    scr_text(ds_list_find_value(textList,i),0.5,room_width/2,room_height/2);
 }
-
 </string>
           </argument>
         </arguments>

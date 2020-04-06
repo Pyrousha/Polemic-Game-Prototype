@@ -26,16 +26,16 @@
           <argument>
             <kind>1</kind>
             <string>textList = ds_list_create()
-ds_list_add(textList,"The Kingdom of Allegoria is known for being remarkably wealthy.# This works out well because you happen to be remarkably poor.#(Press space to continue)");
-ds_list_add(textList,"I mean you’ve been told you’re rich in friends # but you can’t sell friends for groceries.");
+ds_list_add(textList,"The Kingdom of Allegoria is known for being remarkably wealthy.#This works out well because you happen to be remarkably poor.#(Press space to continue)");
+ds_list_add(textList,"I mean you’ve been told you’re rich in friends, #but you can’t sell friends for groceries.");
 ds_list_add(textList,"Or at least you wouldn’t be able to live with yourself if you did.");
-ds_list_add(textList,"Luckily the Kingdom has posted that anyone able to clear out the bandits in this cave # will receive 90 Limited Edition Spider-Man Stem-Ware Wine Glasses.");
+ds_list_add(textList,"Luckily the Kingdom has posted that anyone able to clear out the bandits in this cave #will receive 90 Limited Edition Spider-Man Stem-Ware Wine Glasses.");
 ds_list_add(textList,"You figure you can sell those on Amazon make, like");
 ds_list_add(textList,"70, 75 bucks.");
-ds_list_add(textList,"So you bring your trusty sword and approach the cave.");
+ds_list_add(textList,"So you grab your trusty sword and approach the cave.");
 i=0;
 
-scr_text(ds_list_find_value(textList,i),0.5,room_width/2,room_height/2);
+scr_text(ds_list_find_value(textList,i),2,room_width/2,room_height/2);
 </string>
           </argument>
         </arguments>
@@ -67,7 +67,7 @@ scr_text(ds_list_find_value(textList,i),0.5,room_width/2,room_height/2);
         room_goto_next();
         i = 0 //Just so the game doesn't crash because we have nothing above for now
     }
-    scr_text(ds_list_find_value(textList,i),0.5,room_width/2,room_height/2);
+    scr_text(ds_list_find_value(textList,i),2,room_width/2,room_height/2);
 }
 </string>
           </argument>

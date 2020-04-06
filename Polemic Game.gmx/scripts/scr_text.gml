@@ -10,6 +10,7 @@ with (txt)
     maxlength = view_wview[0];
     text=argument0;
     spd=argument1;
+    spd = 1.5;
     font =Sfnt;
 
     text_length= string_length(text);
