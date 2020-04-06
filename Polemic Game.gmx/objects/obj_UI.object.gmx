@@ -64,6 +64,9 @@ deadOpa = 0;
     }
     else
     {
+        draw_set_halign(fa_left);
+        draw_set_valign(fa_top);
+        draw_set_font(fn_1);
         draw_text(24,16,"Enemies Remaining: "+string(instance_number(obj_enemy)));
     }
 }
