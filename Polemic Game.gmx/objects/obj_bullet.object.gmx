@@ -26,6 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>speed=12;
+visible = obj_hero.visible;
 </string>
           </argument>
         </arguments>

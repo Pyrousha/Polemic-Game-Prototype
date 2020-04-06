@@ -10,6 +10,7 @@ with (txt)
     maxlength = view_wview[0];
     text=argument0;
     spd=argument1;
+    spd = 1.5;
     font =Sfnt;
 
     text_length= string_length(text);
@@ -22,4 +23,6 @@ with (txt)
 
     boxwidth= text_width + (padding*2);
     boxheight = text_height + (padding*2);
+    x = ((2*x) - boxwidth)/2;
+    y = ((2*y) - boxheight)/2;
 }

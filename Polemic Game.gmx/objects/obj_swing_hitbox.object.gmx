@@ -80,9 +80,12 @@ if (timer&lt;0)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (obj_hero.weapon.object_index == obj_sword)
+            <string>if (instance_exists(obj_hero.weapon))
 {
-    ds_list_clear(obj_hero.weapon.hitList);
+    if (obj_hero.weapon.object_index == obj_sword)
+    {
+        ds_list_clear(obj_hero.weapon.hitList);
+    }
 }
 instance_destroy();
 </string>

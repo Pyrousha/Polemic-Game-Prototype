@@ -8,7 +8,7 @@
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
-    <event eventtype="0" enumb="0">
+    <event eventtype="7" enumb="4">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -64,7 +64,10 @@ deadOpa = 0;
     }
     else
     {
-        draw_text(24,16,"Enemies Remaining: "+string(instance_number(obj_enemy)));
+        draw_set_halign(fa_left);
+        draw_set_valign(fa_top);
+        draw_set_font(fn_1);
+        draw_text_outlined(24,16,c_black,c_white,"Enemies Remaining: "+string(instance_number(obj_enemy)));
     }
 }
 else

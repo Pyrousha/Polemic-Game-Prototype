@@ -4,11 +4,11 @@
   <solid>0</solid>
   <visible>-1</visible>
   <depth>0</depth>
-  <persistent>-1</persistent>
+  <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
-    <event eventtype="7" enumb="4">
+    <event eventtype="0" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -25,24 +25,19 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Create the Grid
-var cell_width = 32;
-var cell_height = 32;
+            <string>textList = ds_list_create()
+ds_list_add(textList,"You won , but you didn’t do it alone. You can’t ever use all the items by yourself, and maybe someone who’d have your back down the road needs you to have theirs right now.");
 
-var hcells = (room_width div cell_width);
-var vcells = (room_height div cell_height);
+i=0;
 
-global.grid = mp_grid_create(0, 0, hcells,vcells,cell_width,cell_height);
-
-//Add walls to grid
-mp_grid_add_instances(global.grid,obj_wall,false);
+scr_text(ds_list_find_value(textList,i),0.5,room_width/2,room_height/2);
 
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="7" enumb="3">
+    <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -59,8 +54,20 @@ mp_grid_add_instances(global.grid,obj_wall,false);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Destroy the Grid
-mp_grid_destroy(global.grid);
+            <string>
+if (keyboard_check_pressed(vk_space))
+{
+    i++;
+    if (i &gt;= ds_list_size(textList))
+    {
+        //Do whatever should happen after the text is done with
+        room_goto_next();
+        i = 0 //Just so the game doesn't crash because we have nothing above for now
+    }
+    scr_text(ds_list_find_value(textList,i),0.5,room_width/2,room_height/2);
+}
+
+
 </string>
           </argument>
         </arguments>

@@ -40,6 +40,7 @@
   <paths name="paths"/>
   <scripts name="scripts">
     <script>scripts\scr_text.gml</script>
+    <script>scripts\draw_text_outlined.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fn_1</font>
@@ -57,8 +58,15 @@
       <object>objects\Obj_Gunner</object>
       <object>objects\obj_npc</object>
     </objects>
-    <objects name="items">
+    <objects name="Player Items">
       <object>objects\obj_sword_pickup</object>
+      <object>objects\obj_gun_pickup</object>
+      <object>objects\obj_tommyGun_pickup</object>
+    </objects>
+    <objects name="Enemy Items">
+      <object>objects\obj_eSwordItem</object>
+      <object>objects\obj_eGunItem</object>
+      <object>objects\obj_eTommyGunItem</object>
     </objects>
     <objects name="Swords">
       <object>objects\obj_sword</object>
@@ -68,7 +76,9 @@
     </objects>
     <objects name="Guns">
       <object>objects\obj_gun</object>
+      <object>objects\obj_gun_enemy</object>
       <object>objects\obj_tommyGun</object>
+      <object>objects\obj_tommyGun_enemy</object>
       <object>objects\obj_bullet</object>
       <object>objects\obj_bullet_enemy</object>
     </objects>
@@ -76,17 +86,29 @@
       <object>objects\obj_grid</object>
       <object>objects\obj_UI</object>
       <object>objects\obj_text</object>
+      <object>objects\RoomMover</object>
     </objects>
     <objects name="Room_Texts">
       <object>objects\O_roomtxt</object>
+      <object>objects\A_roomtxt</object>
+      <object>objects\K_roomtxt</object>
+      <object>objects\H_roomtxt</object>
+      <object>objects\E_roomtxt</object>
     </objects>
   </objects>
   <rooms name="rooms">
     <room>rooms\Opening_room</room>
     <room>rooms\rm_entrance</room>
     <room>rooms\room0</room>
-    <room>rooms\test_room</room>
+    <room>rooms\AdventurerRoom</room>
+    <room>rooms\room1</room>
+    <room>rooms\KnightRoom</room>
     <room>rooms\room2</room>
+    <room>rooms\HuntressRoom</room>
+    <room>rooms\FinalRoom</room>
+    <room>rooms\Ending</room>
+    <room>rooms\room10</room>
+    <room>rooms\room2_new</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>

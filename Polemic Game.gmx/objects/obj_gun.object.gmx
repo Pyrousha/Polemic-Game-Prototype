@@ -27,6 +27,7 @@
             <kind>1</kind>
             <string>type = "gun";
 damage = 3;
+shootSpeed = 20;
 </string>
           </argument>
         </arguments>
