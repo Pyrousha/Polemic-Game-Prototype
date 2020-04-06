@@ -531,16 +531,6 @@ if (bulletInst != noone)
     {
         instance_destroy();
     }
-    if (hp &lt;= 0)
-    {
-        audio_play_sound(snd_death, 10, false);
-        dead = "true";
-        alarm[1] = 5*60;
-        with(weapon)
-        {
-            instance_destroy();
-        }
-    }
 }
 else
 {
@@ -560,16 +550,41 @@ else
         {
             ds_list_add(swordInst.hitList,self);
             hp -= swordInst.damage;
-            if (hp &lt;= 0)
+        }
+    }
+    else
+    {
+        fistInst = collision_rectangle(x,y,x+sprite_width-1,y+sprite_height-1,obj_fists_swing_enemy,false,true); //hitbox
+        if (fistInst != noone)
+        {
+            if (!instance_exists(fistInst.swordBlade))
             {
-                dead = "true";
-                audio_play_sound(snd_death, 10, false);
-                alarm[1] = 5*60;
-                with(weapon)
+                with (fistInst)
                 {
                     instance_destroy();
                 }
+                exit;
             }
+            fistInst = fistInst.swordBlade;
+            if (ds_list_find_index(fistInst.hitList,self) == -1)
+            {
+                ds_list_add(fistInst.hitList,self);
+                hp -= fistInst.damage;
+            }
+        }
+    }
+}
+
+if (hp &lt;= 0)
+{
+    dead = "true";
+    audio_play_sound(snd_death, 10, false);
+    alarm[1] = 5*60;
+    if (weapon != noone)
+    {
+        with(weapon)
+        {
+            instance_destroy();
         }
     }
 }
