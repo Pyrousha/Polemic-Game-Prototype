@@ -87,7 +87,7 @@ yOffset = 32;
 hpOpacity = 0.8;
 //Create the path
 path = path_add();
-moveSpeed = 2;
+moveSpeed = 4;
 pathSpd = 0;
 </string>
           </argument>
