@@ -27,7 +27,6 @@
             <kind>1</kind>
             <string>image_blend = c_purple;
 type = "gun";
-damage = 3;
 shootSpeed = 20;
 </string>
           </argument>

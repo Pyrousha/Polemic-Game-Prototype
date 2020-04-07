@@ -26,7 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>type= "melee";
-damage = 7;
+damage = 5;
 hitList = ds_list_create();
 </string>
           </argument>
