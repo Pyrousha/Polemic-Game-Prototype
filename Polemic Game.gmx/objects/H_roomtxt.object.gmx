@@ -29,9 +29,8 @@
 ds_list_add(textList,"A tired woman slowly approaches you, her stride is confident but hampered by her various injuries. ");
 ds_list_add(textList,"H:Hello I am an adventurer who was sent to these caves before you");
 ds_list_add(textList,"I’m truly sorry for the request but could I perhaps have your blade?");
-ds_list_add(textList,"Luckily the Kingdom has posted that anyone able to clear out the bandits in this cave # will receive 90 Limited Edition Spider-Man Stem-Ware Wine Glasses.");
-ds_list_add(textList,"An adventurers blade is their life So I’d understand if you say no but I am in desperate need of a splint for my wound");
-ds_list_add(textList,"Her left leg is mangled below the knee. The room is littered with hundreds of Bandit corpses. You surely would have died if you had encountered this room before she did.");
+ds_list_add(textList,"An adventurers blade is their life So I’d understand if you say no # but I am in desperate need of a splint for my wound");
+ds_list_add(textList,"Her left leg is mangled below the knee. The room is littered with hundreds # of Bandit corpses. You surely would have died if you had encountered this room before she did.");
 ds_list_add(textList,"Give it to her? Y/N");
 ds_list_add(textList,"Thank you! I shall do what I can to aid you in your quest");
 ds_list_add(textList,"I understand... Farewell");

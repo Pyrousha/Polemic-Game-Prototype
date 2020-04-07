@@ -208,6 +208,7 @@ switch (state)
 {
     case ("follow"):
     {
+
         var tx = (((heroX) div 32)*32 +16);
         var ty = (((heroY) div 32)*32 +16);
         if (mp_grid_path(global.grid, path, x, y, tx, ty, 1))
@@ -219,7 +220,9 @@ switch (state)
             path_end();   
         }
         break;
-    }
+        
+    
+       }
     case ("attack"):
     {
         if (path_get_length(path) &lt;= attackRange) //if in range
