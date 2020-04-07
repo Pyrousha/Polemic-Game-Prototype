@@ -36,7 +36,7 @@ iFrameWeapon = noone;
 
 weapon = noone;
 
-weap = (collision_rectangle(x-sprite_width/2,y-sprite_height/2,x+sprite_width/2,y+sprite_height/2, obj_eSwordItem,false, true));
+weap = (collision_rectangle(x-sprite_width/2,y-sprite_height/2,x+sprite_width/2,y+sprite_height/2, obj_eSwordItem,false, true)); //Sword
 if (weap != noone)
 {
     weapon = instance_create(x,y,obj_sword_enemy);
@@ -51,7 +51,7 @@ if (weap != noone)
 }
 else
 { 
-    weap = (collision_rectangle(x-sprite_width/2,y-sprite_height/2,x+sprite_width/2,y+sprite_height/2, obj_eGunItem,false, true));
+    weap = (collision_rectangle(x-sprite_width/2,y-sprite_height/2,x+sprite_width/2,y+sprite_height/2, obj_eGunItem,false, true)); //gun
     if (weap != noone)
     {
         weapon = instance_create(x,y,obj_gun_enemy);
@@ -64,10 +64,11 @@ else
         moveSpeed = 3;
         shootSpeed = 60;
         damage = 3;
+        sprite_index = spr_gunner;
     }
     else
     { 
-        weap = (collision_rectangle(x-sprite_width/2,y-sprite_height/2,x+sprite_width/2,y+sprite_height/2, obj_eTommyGunItem,false, true));
+        weap = (collision_rectangle(x-sprite_width/2,y-sprite_height/2,x+sprite_width/2,y+sprite_height/2, obj_eTommyGunItem,false, true)); //tommygun
         if (weap != noone)
         {
             weapon = instance_create(x,y,obj_tommyGun_enemy);
@@ -80,6 +81,7 @@ else
             moveSpeed = 2;
             shootSpeed = 30;
             damage = 2;
+            sprite_index = spr_gunner;
         }
     }
 }
@@ -257,8 +259,6 @@ if (mp_grid_path(global.grid, path, x, y, tx, ty, 1)) ///Create the path and mov
     pathGood = "true";
 }
 
-show_debug_message("pathspeed: "+string(path_speed));
-
 switch (state)
 {
     case monster.ECalm:
@@ -384,21 +384,6 @@ if (bulletInst != noone)
     {
         instance_destroy();
     }
-    if (hp &lt;= 0)
-    {
-        if (weapon != noone)
-        {
-            with (weapon)
-            {
-                instance_destroy();
-            }
-        }
-        if (instance_number(obj_enemy) &lt;= 1)
-        {
-            room_goto_next();
-        }
-        instance_destroy();
-    }
 }
 else
 {
@@ -415,24 +400,25 @@ else
         {
             ds_list_add(swordInst.hitList,self);
             hp -= swordInst.damage;
-            if (hp &lt;= 0)
-            {
-                if (weapon != noone)
-                {
-                    with (weapon)
-                    {
-                        instance_destroy();
-                    }
-                }
-                if (instance_number(obj_enemy) &lt;= 1)
-                {
-                    room_goto_next();
-                }
-                instance_destroy();
-            }
         }
     }
 }
+
+if (hp &lt;= 0)
+    {
+        if (weapon != noone)
+        {
+            with (weapon)
+            {
+                instance_destroy();
+            }
+        }
+        if (instance_number(obj_enemy) &lt;= 1)
+        {
+            instance_create(view_xview[0],view_yview[0],obj_fadeOut);
+        }
+        instance_destroy();
+    }
 </string>
           </argument>
         </arguments>
