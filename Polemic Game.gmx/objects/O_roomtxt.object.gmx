@@ -64,8 +64,8 @@ scr_text(ds_list_find_value(textList,i),2,room_width/2,room_height/2);
     if (i &gt;= ds_list_size(textList))
     {
         //Do whatever should happen after the text is done with
-        room_goto_next();
-        i = 0 //Just so the game doesn't crash because we have nothing above for now
+        instance_create(view_xview[0],view_yview[0],obj_fadeOut);
+        i--; //Just so the game doesn't crash because we have nothing above for now
     }
     scr_text(ds_list_find_value(textList,i),2,room_width/2,room_height/2);
 }

@@ -80,7 +80,7 @@ if (keyboard_check_pressed(vk_space))
 {
     if (i &gt;= 7)
     {
-        room_goto_next();
+        instance_create(view_xview[0],view_yview[0],obj_fadeOut);
     }
     if (i &lt; 6)
     {

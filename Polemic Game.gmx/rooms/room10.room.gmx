@@ -502,7 +502,7 @@
     <instance objName="obj_enemy" x="1952" y="896" name="inst_045157A3" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_UI" x="320" y="288" name="inst_99140053" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_ally" x="864" y="864" name="inst_8635B2FE" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="RoomMover" x="256" y="128" name="inst_958B6A17" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_fadeIn" x="256" y="128" name="inst_958B6A17" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>

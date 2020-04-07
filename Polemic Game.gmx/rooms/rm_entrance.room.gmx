@@ -10,7 +10,9 @@
   <persistent>0</persistent>
   <colour>16764262</colour>
   <showcolour>-1</showcolour>
-  <code>scr_text("Take your sword and go!#Use the left mouse button to swing, and WASD to move",0.5,300,300);</code>
+  <code>instance_create(view_xview[0],view_yview[0],obj_fadeIn);
+
+scr_text("Take your sword and go!#Use the left mouse button to swing, and WASD to move",0.5,300,300);</code>
   <enableViews>-1</enableViews>
   <clearViewBackground>-1</clearViewBackground>
   <clearDisplayBuffer>-1</clearDisplayBuffer>
