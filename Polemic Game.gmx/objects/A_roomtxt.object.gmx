@@ -31,8 +31,8 @@ ds_list_add(textList,"YM: Hey I don't how else to say this but I'd like that gun
 ds_list_add(textList,"YM: I know, I know, you just killed a shit load of guys to get it, but let me explain it from my end");
 ds_list_add(textList,"YM: I want it, I want your stuff, for free");
 ds_list_add(textList,"YM: I'm a goo-goo ga-ga babyyyyy, I mean look at me");
-ds_list_add(textList,"He looks at you, and his expression seems like the look someone would give someone # they told an inside joke to, mixed with puppy dog eyes");
-ds_list_add(textList,"Give Him The Gun Y/N");
+ds_list_add(textList,"He looks at you, and his expression seems like the look someone would give someone #they told an inside joke to, mixed with puppy dog eyes");
+ds_list_add(textList,"Give Him The Gun? (Y/N)");
 ds_list_add(textList,"K: Woah you actually did it, thanks!");
 ds_list_add(textList,"K: AHHHHH but whyyyyyyyyy...");
 
