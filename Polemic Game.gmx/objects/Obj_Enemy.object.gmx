@@ -321,8 +321,8 @@ switch (state)
                         if (canShoot == "true")
                         {
                             bulletDir = point_direction(x,y,targX,targY);
-                            bulletX = (x) + 32*dcos(bulletDir);
-                            bulletY = (y) - 32*dsin(bulletDir);
+                            bulletX = (x);
+                            bulletY = (y);
                             bullet = (instance_create(0,0,obj_bullet_enemy))
                             {
                                 bullet.x = bulletX;

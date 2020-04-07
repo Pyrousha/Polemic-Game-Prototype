@@ -566,7 +566,7 @@ with(weapon)
 }
 weapon = instance_create(x,y,ds_list_find_value(weaponList,equippedIndex));
 weaponName = object_get_name(weapon.object_index);
-scr_text("use the mouse wheel or shift to change weapons",1,x,y);
+scr_text("You got a new weapon!#Use the mouse wheel or (shift) to change weapons",1,x,y-64);
 with (obj_gun_pickup)
 {
     instance_destroy();
@@ -800,8 +800,8 @@ switch(room)
     }
     case (FinalRoom):
     {
-        x = 448;
-        y = 736;
+        x = 416;
+        y = 640;
         visible = true;
         if (weapon != noone)
         {
@@ -825,7 +825,6 @@ if ((ds_list_size(allyList) &gt;= 1) &amp;&amp; (visible = true))
         attackRange = 500;
         with (allyInst)
         {
-            show_debug_message("aftercreate");
             weapon.parent = self;
             switch(weapon.object_index)
             {
@@ -834,7 +833,7 @@ if ((ds_list_size(allyList) &gt;= 1) &amp;&amp; (visible = true))
                     sprite_index = spr_ally;
                     attackRange = 500;
                     shootSpeed = weapon.shootSpeed;
-                    damage = weapon.damage;
+                    damage = 2;
                     break;
                 }
                 case (obj_tommyGun):
@@ -842,7 +841,8 @@ if ((ds_list_size(allyList) &gt;= 1) &amp;&amp; (visible = true))
                     sprite_index = spr_knight;
                     shootSpeed = weapon.shootSpeed;
                     attackRange = 300;
-                    damage = weapon.damage;
+                    damage = 1.25;
+                    followDist = sprite_width*3;
                     break;
                 }
                 case (obj_sword):
@@ -855,6 +855,8 @@ if ((ds_list_size(allyList) &gt;= 1) &amp;&amp; (visible = true))
                     sprite_index = spr_huntress;
                     attackRange = 128;
                     damage = 8;
+                    weapon.damage = damage;
+                    followDist = sprite_width*5.5;
                     break;
                 }   
             }

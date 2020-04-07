@@ -30,7 +30,7 @@ hsp=0;
 vsp=0;
 
 aggroRange = 600;
-followDist = sprite_width*8;
+followDist = sprite_width*4;
 moveSpeed = 4;
 heroClose = sprite_width*2;
 
@@ -243,7 +243,7 @@ switch (state)
                             {
                                 swordState = "RtoL";
                                 weapon.sprite_index = spr_sword_swing_left;
-                                hitbox = (instance_create(x,y,obj_swing_hitbox))
+                                hitbox = (instance_create(x,y,obj_swing_hitbox));
                                 hitbox.parent = self;
                                 hitbox.damage = damage;
                                 hitbox.direction = point_direction(x,y,targX,targY);
@@ -255,7 +255,7 @@ switch (state)
                             {
                                 swordState = "LtoR";
                                 weapon.sprite_index = spr_sword_swing_right;
-                                hitbox = (instance_create(x,y,obj_swing_hitbox))
+                                hitbox = (instance_create(x,y,obj_swing_hitbox));
                                 hitbox.parent = self;
                                 hitbox.damage = damage;
                                 hitbox.direction = point_direction(x,y,targX,targY);
@@ -271,8 +271,8 @@ switch (state)
                         if (canShoot == "true")
                         {
                             bulletDir = point_direction(x,y,targX,targY);
-                            bulletX = (x) + 32*dcos(bulletDir);
-                            bulletY = (y) - 32*dsin(bulletDir);
+                            bulletX = (x);
+                            bulletY = (y);
                             bullet = (instance_create(0,0,obj_bullet))
                             {
                                 bullet.x = bulletX;
@@ -360,12 +360,14 @@ else
 
 if (hp &lt;= 0)
 {
-    audio_play_sound(snd_death, 10, false);
-    dead = "true";
-    with(weapon)
+    if (weapon != noone)
     {
-        instance_destroy();
+        with(weapon)
+        {
+            instance_destroy();
+        }
     }
+    instance_destroy();
 }
 </string>
           </argument>

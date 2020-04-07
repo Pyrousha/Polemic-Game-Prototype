@@ -8,10 +8,10 @@ with (txt)
 {
     padding = 16;
     maxlength = view_wview[0];
-    text=argument0;
-    spd=argument1;
+    text = argument0;
+    spd = argument1;
     spd = 1.5;
-    font =Sfnt;
+    font = Sfnt;
 
     text_length= string_length(text);
     font_size= font_get_size(font);
