@@ -100,11 +100,11 @@
       <object>objects\obj_enemy_arrow</object>
     </objects>
     <objects name="Room_Texts">
-      <object>objects\O_roomtxt</object>
       <object>objects\A_roomtxt</object>
       <object>objects\K_roomtxt</object>
       <object>objects\H_roomtxt</object>
       <object>objects\E_roomtxt</object>
+      <object>objects\O_roomtxt</object>
     </objects>
   </objects>
   <rooms name="rooms">
