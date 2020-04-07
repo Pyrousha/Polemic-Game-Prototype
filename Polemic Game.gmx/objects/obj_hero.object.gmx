@@ -27,6 +27,9 @@
             <kind>1</kind>
             <string>display_reset(8,true);
 
+gotGun = "false";
+gotTommy = "false";
+
 up = ord('W');
 down = ord('S');
 left = ord('A');
@@ -149,7 +152,14 @@ with(instance_create(0,0,obj_bullet))
     x = obj_hero.bulletX;
     y = obj_hero.bulletY;
     direction = obj_hero.bulletDir;
-    damage = obj_hero.weapon.damage;
+    if (instance_exists(obj_hero.weapon))
+    {
+        damage = obj_hero.weapon.damage;
+    }
+    else
+    {
+        damage = 1;
+    }
 }
 bulletCounter--;
 if (bulletCounter &gt; 0)
@@ -523,6 +533,7 @@ if (hp &lt;= 0)
           <argument>
             <kind>1</kind>
             <string>ds_list_add(weaponList,obj_tommyGun);
+gotTommy = "true";
 equippedIndex = ds_list_find_index(weaponList,obj_tommyGun);
 with(weapon)
 {
@@ -559,6 +570,7 @@ with (obj_tommyGun_pickup)
           <argument>
             <kind>1</kind>
             <string>ds_list_add(weaponList,obj_gun);
+gotGun = "true";
 equippedIndex++;
 with(weapon)
 {
@@ -762,6 +774,8 @@ switch(room)
 {
     case (rm_entrance):
     {
+        x = 0;
+        y = 224;
         visible = true;
         break;
     }

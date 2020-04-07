@@ -4,7 +4,7 @@
   <solid>0</solid>
   <visible>-1</visible>
   <depth>0</depth>
-  <persistent>-1</persistent>
+  <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
@@ -25,7 +25,11 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>bounceAmp = 8;
+            <string>if (obj_hero.gotTommy == "true")
+{
+    instance_destroy();
+}
+bounceAmp = 8;
 bounceSpeed = 1;
 yStart = y;
 dist = 0;
