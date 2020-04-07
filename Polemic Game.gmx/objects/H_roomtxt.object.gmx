@@ -26,12 +26,12 @@
           <argument>
             <kind>1</kind>
             <string>textList = ds_list_create()
-ds_list_add(textList,"A tired woman slowly approaches you, her stride is confident but hampered by her various injuries. ");
-ds_list_add(textList,"H:Hello I am an adventurer who was sent to these caves before you");
+ds_list_add(textList,"A tired woman slowly approaches you, her stride is confident but hampered by her various injuries.");
+ds_list_add(textList,"H: Hello, I am an adventurer who was sent to these caves before you");
 ds_list_add(textList,"I’m truly sorry for the request but could I perhaps have your blade?");
-ds_list_add(textList,"An adventurers blade is their life So I’d understand if you say no # but I am in desperate need of a splint for my wound");
-ds_list_add(textList,"Her left leg is mangled below the knee. The room is littered with hundreds # of Bandit corpses. You surely would have died if you had encountered this room before she did.");
-ds_list_add(textList,"Give it to her? Y/N");
+ds_list_add(textList,"An adventurers blade is their life, I’d understand if you say no. #But I am in desperate need of a splint for my wound");
+ds_list_add(textList,"Her left leg is mangled below the knee. The room is littered with hundreds of Bandit corpses.#You surely would have died if you had encountered this room before she did.");
+ds_list_add(textList,"Give it to her? (Y/N)");
 ds_list_add(textList,"Thank you! I shall do what I can to aid you in your quest");
 ds_list_add(textList,"I understand... Farewell");
 i=0;
@@ -63,11 +63,11 @@ scr_text(ds_list_find_value(textList,i),0.5,room_width/2,room_height/2);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (i == 6)
+            <string>if (i == 5)
 {
     if (keyboard_check_pressed(ord('Y')))
     {
-        i = 7;
+        i = 6;
         ds_list_add(obj_hero.allyList,obj_sword);
         ds_list_delete(obj_hero.weaponList,(ds_list_find_index(obj_hero.weaponList, obj_sword)));
         scr_text(ds_list_find_value(textList,i),1,room_width/2,room_height/2);
@@ -79,17 +79,17 @@ scr_text(ds_list_find_value(textList,i),0.5,room_width/2,room_height/2);
     }
     else if (keyboard_check_pressed(ord('N')))
     {
-        i = 8;
+        i = 7;
         scr_text(ds_list_find_value(textList,i),1,room_width/2,room_height/2);
     }
 }
 if (keyboard_check_pressed(vk_space))
 {
-    if (i &gt;= 7)
+    if (i &gt;= 6)
     {
         instance_create(view_xview[0],view_yview[0],obj_fadeOut);
     }
-    if (i &lt; 6)
+    if (i &lt; 5)
     {
         i++;
         scr_text(ds_list_find_value(textList,i),0.5,room_width/2,room_height/2);
