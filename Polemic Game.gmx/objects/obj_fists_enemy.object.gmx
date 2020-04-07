@@ -26,7 +26,6 @@
           <argument>
             <kind>1</kind>
             <string>image_blend = c_purple;
-damage = 2;
 type = "fist";
 hitList = ds_list_create();
 </string>

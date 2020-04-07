@@ -914,22 +914,23 @@ if ((ds_list_size(allyList) &gt;= 1) &amp;&amp; (visible = true))
             show_debug_message("aftercreate");
             damage = weapon.damage;
             weapon.parent = self;
-            shootSpeed = weapon.shootSpeed;
             switch(weapon.object_index)
             {
-                case("obj_gun"):
+                case(obj_gun):
                 {
-                    sprite_index = spr_knight;
+                    sprite_index = spr_ally;
                     attackRange = 500;
+                    shootSpeed = weapon.shootSpeed;
                     break;
                 }
-                case ("obj_tommyGun"):
+                case (obj_tommyGun):
                 {
                     sprite_index = spr_knight;
+                    shootSpeed = weapon.shootSpeed;
                     attackRange = 300;
                     break;
                 }
-                case ("obj_sword"):
+                case (obj_sword):
                 {
                     sprite_index = spr_huntress;
                     attackRange = 128;
@@ -942,23 +943,6 @@ if ((ds_list_size(allyList) &gt;= 1) &amp;&amp; (visible = true))
 
 startX = x;
 startY = y;
-/*swordState = "right";
-shootSpeed = 15;
-shootTimer = 0;
-canShoot = "true";
-bulletCounter = 3;
-bulletInterval = 3;
-
-dead = "false";
-
-//HP + bar variables
-maxHp = 20;
-hp = maxHp;
-borderSize = 2;
-barWidth = 24;
-barHeight = 8;
-yOffset = 32;
-hpOpacity = 0.8;*/
 </string>
           </argument>
         </arguments>

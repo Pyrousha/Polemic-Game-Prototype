@@ -44,7 +44,10 @@ if (weap != noone)
     {
         instance_destroy();
     }
+    maxHp = 12;
     attackRange = 96;
+    moveSpeed = 3;
+    damage = 5;
 }
 else
 { 
@@ -56,7 +59,11 @@ else
         {
             instance_destroy();
         }
+        maxHp = 10;
         attackRange = 500;
+        moveSpeed = 3;
+        shootSpeed = 60;
+        damage = 3;
     }
     else
     { 
@@ -68,42 +75,48 @@ else
             {
                 instance_destroy();
             }
-            attackRange = 300;
+            maxHp = 8;
+            attackRange = 400;
+            moveSpeed = 2;
+            shootSpeed = 30;
+            damage = 2;
         }
     }
 }
 
 if (weapon != noone)
 {
-    damage = weapon.damage;
     weapon.parent = self;
 }
-else
+else //Weapon is fist
 {
     weapon = instance_create(x,y,obj_fists_enemy);
-    damage = weapon.damage;
+    damage = 4;
     weapon.parent = self;
+    maxHp = 15;
+    moveSpeed = 4;
 }
+weapon.damage = damage;
+
 swordState = "right";
 
 //HP + bar variables
-maxHp = 10;
 hp = maxHp;
 borderSize = 2;
 barWidth = 24;
 barHeight = 8;
 yOffset = 32;
 hpOpacity = 0.8;
+
 //Create the path
 path = path_add();
-moveSpeed = 2;
+
 pathSpd = 0;
 
 //Gun properties
-shootSpeed = 60;
 shootTimer = 0;
 canShoot = "true";
-bulletSpeed = 6;
+bulletSpeed = 10;
 </string>
           </argument>
         </arguments>
@@ -342,8 +355,27 @@ switch (state)
         }
     }
 }
-
-
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Damage calulation
 bulletInst = collision_rectangle(x-sprite_width/2,y-sprite_height/2,x+sprite_width/2,y+sprite_height/2,obj_bullet,false,true);
 if (bulletInst != noone)
 {
