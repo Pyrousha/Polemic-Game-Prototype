@@ -62,12 +62,12 @@ print= string_copy(text,0,time)
 draw_set_alpha(alpha);
 if (alpha&lt;1) alpha+= spd/10; else alpha = 1;
 draw_set_font(font);
-draw_set_color(c_blue);
+draw_set_color(c_lime);
 draw_rectangle(x,y,x+boxwidth,y+boxheight,0);
 draw_set_color(c_gray);
 draw_rectangle(x,y,x+boxwidth,y+boxheight,1);
 
-draw_set_color(c_white);
+draw_set_color(c_black);
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 draw_text_ext 

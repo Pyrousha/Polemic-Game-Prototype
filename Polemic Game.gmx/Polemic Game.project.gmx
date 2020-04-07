@@ -15,7 +15,7 @@
       <sprite>sprites\spr_hero</sprite>
       <sprite>sprites\spr_ally</sprite>
       <sprite>sprites\spr_enemy</sprite>
-      <sprite>sprites\spr_Gunner</sprite>
+      <sprite>sprites\spr_gunner</sprite>
       <sprite>sprites\spr_knight</sprite>
       <sprite>sprites\spr_huntress</sprite>
     </sprites>
@@ -35,6 +35,9 @@
     </sprites>
     <sprites name="UI">
       <sprite>sprites\spr_you_died</sprite>
+      <sprite>sprites\spr_enemy_arrow_right</sprite>
+      <sprite>sprites\spr_enemy_arrow_left</sprite>
+      <sprite>sprites\spr_black</sprite>
     </sprites>
   </sprites>
   <backgrounds name="background">
@@ -58,7 +61,6 @@
       <object>objects\obj_hero</object>
       <object>objects\obj_enemy</object>
       <object>objects\obj_ally</object>
-      <object>objects\obj_Gunner</object>
       <object>objects\obj_npc</object>
     </objects>
     <objects name="Player Items">
@@ -77,7 +79,9 @@
       <object>objects\obj_swing_hitbox</object>
       <object>objects\obj_swing_hitbox_enemy</object>
       <object>objects\obj_fists_enemy</object>
+      <object>objects\obj_fists</object>
       <object>objects\obj_fists_swing_enemy</object>
+      <object>objects\obj_fists_swing</object>
     </objects>
     <objects name="Guns">
       <object>objects\obj_gun</object>
@@ -91,7 +95,9 @@
       <object>objects\obj_grid</object>
       <object>objects\obj_UI</object>
       <object>objects\obj_text</object>
-      <object>objects\RoomMover</object>
+      <object>objects\obj_fadeIn</object>
+      <object>objects\obj_fadeOut</object>
+      <object>objects\obj_enemy_arrow</object>
     </objects>
     <objects name="Room_Texts">
       <object>objects\O_roomtxt</object>

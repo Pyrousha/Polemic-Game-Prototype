@@ -39,9 +39,6 @@ ff = 1;
 
 weaponList = ds_list_create();
 allyList = ds_list_create();
-//ds_list_add(weaponList,obj_sword);
-//ds_list_add(weaponList,obj_gun);
-//ds_list_add(weaponList,obj_tommyGun);
 equippedIndex = 0;
 nextEquippedIndex = 0;
 if(ds_list_size(weaponList) &lt; 1)
@@ -71,6 +68,8 @@ barWidth = 24;
 barHeight = 8;
 yOffset = 32;
 hpOpacity = 0.8;
+
+enemyArrow = instance_create(x,y,obj_enemy_arrow);
 </string>
           </argument>
         </arguments>
@@ -93,10 +92,8 @@ hpOpacity = 0.8;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>room_restart();
-x = startX;
-y = startY;
-dead = "false";
+            <string>instance_create(0,0,obj_fadeIn);
+
 swordState = "right";
 canShoot = "true";
 shootTimer = 0;
@@ -177,35 +174,48 @@ if ((ds_list_size(allyList) &gt;= 1) &amp;&amp; (visible = true))
     {
         allyInst = instance_create(x+32*j,y+32*j,obj_ally);
         allyInst.weapon = instance_create(x,y,ds_list_find_value(allyList,j));
+        attackRange = 500;
         with (allyInst)
         {
             show_debug_message("aftercreate");
-            weapon.damage = damage;
             weapon.parent = self;
-            shootSpeed = weapon.shootSpeed;
+            switch(weapon.object_index)
+            {
+                case(obj_gun):
+                {
+                    sprite_index = spr_ally;
+                    attackRange = 500;
+                    shootSpeed = weapon.shootSpeed;
+                    damage = weapon.damage;
+                    break;
+                }
+                case (obj_tommyGun):
+                {
+                    sprite_index = spr_knight;
+                    shootSpeed = weapon.shootSpeed;
+                    attackRange = 300;
+                    damage = weapon.damage;
+                    break;
+                }
+                case (obj_sword):
+                {
+                    with (weapon)
+                    {
+                        instance_destroy();
+                    }
+                    weapon = instance_create(x,y,obj_fists);
+                    sprite_index = spr_huntress;
+                    attackRange = 128;
+                    damage = 8;
+                    break;
+                }   
+            }
         }
     }
 }
 
 startX = x;
 startY = y;
-/*swordState = "right";
-shootSpeed = 15;
-shootTimer = 0;
-canShoot = "true";
-bulletCounter = 3;
-bulletInterval = 3;
-
-dead = "false";
-
-//HP + bar variables
-maxHp = 20;
-hp = maxHp;
-borderSize = 2;
-barWidth = 24;
-barHeight = 8;
-yOffset = 32;
-hpOpacity = 0.8;*/
 </string>
           </argument>
         </arguments>
@@ -828,7 +838,9 @@ switch(weapon.object_index)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>swordState = "right";
+            <string>instance_create(0,0,obj_fadeIn);
+
+swordState = "right";
 canShoot = "true";
 shootTimer = 0;
 equippedIndex = 0;
@@ -912,7 +924,6 @@ if ((ds_list_size(allyList) &gt;= 1) &amp;&amp; (visible = true))
         with (allyInst)
         {
             show_debug_message("aftercreate");
-            damage = weapon.damage;
             weapon.parent = self;
             switch(weapon.object_index)
             {
@@ -921,6 +932,7 @@ if ((ds_list_size(allyList) &gt;= 1) &amp;&amp; (visible = true))
                     sprite_index = spr_ally;
                     attackRange = 500;
                     shootSpeed = weapon.shootSpeed;
+                    damage = weapon.damage;
                     break;
                 }
                 case (obj_tommyGun):
@@ -928,12 +940,19 @@ if ((ds_list_size(allyList) &gt;= 1) &amp;&amp; (visible = true))
                     sprite_index = spr_knight;
                     shootSpeed = weapon.shootSpeed;
                     attackRange = 300;
+                    damage = weapon.damage;
                     break;
                 }
                 case (obj_sword):
                 {
+                    with (weapon)
+                    {
+                        instance_destroy();
+                    }
+                    weapon = instance_create(x,y,obj_fists);
                     sprite_index = spr_huntress;
                     attackRange = 128;
+                    damage = 8;
                     break;
                 }   
             }
